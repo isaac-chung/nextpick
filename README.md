@@ -1,9 +1,16 @@
 # NextPick
 Explore your next picks of travel locations by simply uploading
- an scenery image.
+ a scenery image.
  
 ![snow](/static_img/49770197542.jpg)
 ![field](/static_img/49826303651.jpg)
+ 
+NextPick uses pre-trained deep learning models on the 
+[places365 dataset](https://github.com/CSAILVision/places365)
+to generate image vector embeddings. These embeddings are
+compared to geo-tagged images from [Flickr](https://www.flickr.com/).
+Based on the image similarities and user-defined preferences,
+the top 3 locations are provided. 
  
  ## Dependencies
 Make sure all dependencies are installed from 'requirements.txt'. 
