@@ -3,8 +3,8 @@ Explore your next picks of travel locations by simply uploading
  a scenery image.
  
 <p float="left">
-    <img src="/static_img/49770197542.jpg" width="250"/>
-    <img src="/static_img/49826303651.jpg" width="250"/>
+    <img src="/static_img/49770197542.jpg" width="400"/>
+    <img src="/static_img/49826303651.jpg" width="400"/>
 </p>
      
 NextPick uses pre-trained deep learning models on the 
@@ -21,4 +21,4 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-TBD.......
+![app](/static_img/app_screenshot_wk2.PNG)
