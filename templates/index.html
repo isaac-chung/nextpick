@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="NextPick: Insight Data Science Toronto 2020" />
+        <meta name="author" content="Isaac Chung" />
+        <title>{{ title }}</title>
+        <link rel="icon" type="image/x-icon" href="../static/assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../static/css/styles.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="../static/js/image-picker.min.js"></script>
+        <link rel="stylesheet" href="../static/css/image-picker.css" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-black fixed-top bg-black" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger text-white" href="#page-top">Back to top</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu<i class="fas fa-bars"></i></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <!--<li class="nav-item"><a class="nav-link text-white js-scroll-trigger" href="#about">About</a></li>-->
+                        <li class="nav-item"><a class="nav-link text-white js-scroll-trigger" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link text-white js-scroll-trigger" href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container d-flex h-100 align-items-center">
+                <div class="mx-auto text-center">
+                    <h1 class="mt-5 pt-5 text-uppercase">NextPick</h1>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Pick your next travel locations by uploading a scenery picture.</h2>
+                    <!-- <form class="myform.cgi">
+                        <label for="fileupload"> Select an image file to upload</label>
+                        <br><input type="file" name="fileupload" value="fileupload" id="fileupload" alt="Upload" accept='image/png, image/jpeg, image/gif' width="100">
+                        <br><input type="submit" value="Upload Image" name="submit">
+                    </form> -->
+                    <select class="image-picker" show-html>
+                        <option data-img-src="../static/assets/img/ski-test-img.jpg" width="200" height="120" value="ski"></option>
+                        <option data-img-src="../static/assets/img/test-img-war-mem.jpg" width="200" height="120" value="war_mem"></option>
+                        <style type="text/css">
+                            thumbnail li img{height: 300px;}
+                        </style>
+                    </select>
+                    <script>
+                        $("select").imagepicker()
+                    </script>
+                    <div class="row justify-content-center">
+                        <a class="btn btn-secondary btn-lg js-scroll-trigger" href="#projects">Go!</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Projects-->
+        <section class="projects-section bg-black" id="projects">
+            <div class="container">
+                <!-- Input image Row-->
+                <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="../static/assets/img/ski-test-img.png" width="600" height="400" alt="" /></div>
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="featured-text text-center text-lg-left">
+                            <h4 class="text-white">User Input</h4>
+                            <h5 class="text-white">We have the results for you!</h5>
+                            <!--<p class="text-black-50 mb-0">Could give a bit of insight here, e.g. what class label from places365.</p>-->
+                        </div>
+                    </div>
+                </div>
+                <!-- image 1 Row-->
+                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+                    <div class="col-lg-6"><img class="img-fluid" src="../static/assets/img/49788543373.jpg" width="600" height="400" alt="" /></div>
+                    <div class="col-lg-6">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-left">
+                                    <h4 class="text-white">Image 1</h4>
+                                    <p class="mb-0 text-white-50">Lyngen, Troms og Finnmark, Norge</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = 0.445</p>
+                                    <hr class="d-none d-lg-block mb-0 ml-0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- image 2 Row-->
+                <div class="row justify-content-center no-gutters">
+                    <div class="col-lg-6"><img class="img-fluid" src="../static/assets/img/49455542272.jpg" width="600" height="400" alt="" /></div>
+                    <div class="col-lg-6 order-lg-first">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-right">
+                                    <h4 class="text-white">Image 2</h4>
+                                    <p class="mb-0 text-white-50">Les Florins, Risoul, Briançon, Hautes-Alpes, Provence-Alpes-Côte d'Azur, France métropolitaine, 05600, France</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = 0.510</p>
+                                    <hr class="d-none d-lg-block mb-0 mr-0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- image 3 Row-->
+                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+                    <div class="col-lg-6"><img class="img-fluid" src="../static/assets/img/49788543528.jpg" width="600" height="400" alt="" /></div>
+                    <div class="col-lg-6">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-left">
+                                    <h4 class="text-white">Image 3</h4>
+                                    <p class="mb-0 text-white-50">Engstlen-Jochpass, Engstlenalp, Innertkirchen, Verwaltungskreis Interlaken-Oberhasli, Verwaltungsregion Oberland, Bern/Berne, 3862, Switzerland</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = 0.521</p>
+                                    <hr class="d-none d-lg-block mb-0 ml-0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- image 4 Row-->
+                <div class="row justify-content-center no-gutters">
+                    <div class="col-lg-6"><img class="img-fluid" src="../static/assets/img/49458494093.jpg" width="600" height="400" alt="" /></div>
+                    <div class="col-lg-6 order-lg-first">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-right">
+                                    <h4 class="text-white">Image 4</h4>
+                                    <p class="mb-0 text-white-50">Mustafa Asım Köksal Mahallesi, Develi, Kayseri, İç Anadolu Bölgesi, 38400, Türkiye</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = 0.531</p>
+                                    <hr class="d-none d-lg-block mb-0 mr-0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- image 5 Row-->
+                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+                    <div class="col-lg-6"><img class="img-fluid" src="../static/assets/img/33853719818.jpg" width="600" height="400" alt="" /></div>
+                    <div class="col-lg-6">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-left">
+                                    <h4 class="text-white">Image 5</h4>
+                                    <p class="mb-0 text-white-50">Tekir Yaylası, Melikgazi, Kayseri, İç Anadolu Bölgesi, Türkiye</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = 0.531 {{ output }}</p>
+                                    <hr class="d-none d-lg-block mb-0 ml-0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="map-section bg-black" id="map">
+            <div class="row justify-content-center no-gutters mt-0">
+                <img src="../static/assets/img/newplot.png" width="1000" height="500"/>
+            </div>
+        </section>
+
+        <!-- Try Section
+        <section class="bg-primary mb-0" id="try">
+            <div class="container">
+                <div class="row justify-content-center no-gutters mt-0">
+                    <form action="#projects" method="POST">
+                        <input type="text" id="test" name="test"><br>
+                        <input type="submit" value="submit">
+                    </form>
+                </div>
+                {% if some_image %}
+                <h4 class="text-white">{{ some_input }} - Microblog</h4>
+                {% else %}
+                <h4 class="text-white">Welcome to Microblog!</h4>
+                {% endif %}
+            </div>
+        </section>-->
+
+        <!-- Contact-->
+        <section class="contact-section bg-black" id="contact">
+            <div class="container">
+                <div class="row bg-black">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100 bg-black">
+                            <div class="card-body text-center bg-black">
+                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase text-white m-0">Location</h4>
+                                <hr class="my-4" />
+                                <div class="small text-white-50">Toronto, ON</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100 bg-black">
+                            <div class="card-body text-center bg-black">
+                                <i class="fas fa-envelope text-primary mb-2"></i>
+                                <h4 class="text-uppercase text-white m-0">Email</h4>
+                                <hr class="my-4" />
+                                <div class="small text-white-50"><a href="#!">chungisaac1217@gmail.com</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100 bg-black">
+                            <div class="card-body text-center bg-black">
+                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase text-white m-0">Phone</h4>
+                                <hr class="my-4" />
+                                <div class="small text-white-50">+1 (416) 824-6422</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social d-flex justify-content-center">
+                    <a class="mx-2" href="https://www.linkedin.com/in/isaac-chung/"><i class="fab fa-linkedin"></i></a>
+                    <a class="mx-2" href="https://www.strava.com/athletes/17796761"><i class="far fa-paper-plane"></i></a>
+                    <a class="mx-2" href="https://github.com/isaac-chung"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © Isaac Chung 2020</div></footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="../static/js/scripts.js"></script>
+    </body>
+</html>
