@@ -2,8 +2,8 @@
 Explore your next picks of travel locations by simply uploading
  a scenery image.
  
-![snow](/static_img/49770197542.jpg)
-![field](/static_img/49826303651.jpg)
+<img src="/static_img/49770197542.jpg" width="250"/>
+<img src="/static_img/49826303651.jpg" width="250"/> 
  
 NextPick uses pre-trained deep learning models on the 
 [places365 dataset](https://github.com/CSAILVision/places365)
