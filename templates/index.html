@@ -37,26 +37,39 @@
         <header class="masthead">
             <div class="container d-flex h-100 align-items-center">
                 <div class="mx-auto text-center">
-                    <h1 class="mt-5 pt-5 text-uppercase">NextPick</h1>
-                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Pick your next travel locations by uploading a scenery picture.</h2>
-                    <!-- <form class="myform.cgi">
-                        <label for="fileupload"> Select an image file to upload</label>
-                        <br><input type="file" name="fileupload" value="fileupload" id="fileupload" alt="Upload" accept='image/png, image/jpeg, image/gif' width="100">
-                        <br><input type="submit" value="Upload Image" name="submit">
-                    </form> -->
-                    <select class="image-picker" show-html>
-                        <option data-img-src="../static/assets/img/ski-test-img.jpg" width="200" height="120" value="ski"></option>
-                        <option data-img-src="../static/assets/img/test-img-war-mem.jpg" width="200" height="120" value="war_mem"></option>
-                        <style type="text/css">
-                            thumbnail li img{height: 300px;}
-                        </style>
-                    </select>
-                    <script>
-                        $("select").imagepicker()
-                    </script>
-                    <div class="row justify-content-center">
-                        <a class="btn btn-secondary btn-lg js-scroll-trigger" href="#projects">Go!</a>
+                    <h1 class="text-uppercase">NextPick</h1>
+                    <h2 class="text-white mx-auto mt-2 mb-5">Pick your next travel locations by uploading a scenery picture.</h2>
+
+                    <br><h2 class="text-white-50 mx-auto mt-2 mb-5">Choose from one of the following images</h2>
+                    <form action="/output" id="selection">
+                        <select class="image-picker" show-html name="selection">
+                            <option data-img-src="../static/assets/img/ski-test-img.jpg" width="200" height="120" value="ski"></option>
+                            <option data-img-src="../static/assets/img/test-img-war-mem.jpg" width="200" height="120" value="war_mem"></option>
+                        </select>
+                        <script>
+                            $("select").imagepicker()
+                            $("select").data("picker").selected_values()
+                        </script>
+                        <div>
+                            <button type="submit" class="btn btn-secondary btn-lg" form="selection">Go</button>
+                        </div>
+                    </form>
+                    <!-- condition for selection -->
+                    {% if flag=="1" %}
+                    <div class="row mt-4 justify-content-center">
+                        <h4 class="text-white text-center text-uppercase">You typed {{ sel_input }}!</h4>
                     </div>
+                    {% elif flag=="0" %}
+                    <div class="row mt-4 justify-content-center">
+                        <h4 class="text-white text-center text-uppercase">{{ sel_form_result }}</h4>
+                    </div>
+                    {% endif %}
+                    <!--<br><h2 class="text-white mx-auto mt-2 mb-5">Or upload your own image!</h2>
+                    <form class="myform.cgi">
+                        <label for="upload"> Select an image file to upload</label>
+                        <br><input type="file" name="fileupload" value="fileupload" id="upload" alt="Upload" accept='image/png, image/jpeg, image/gif' width="100">
+                        <br> <input type="submit" value="Upload Image" id="upload" name="submit">
+                    </form>-->
                 </div>
             </div>
         </header>
@@ -68,7 +81,7 @@
                     <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="../static/assets/img/ski-test-img.png" width="600" height="400" alt="" /></div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <h4 class="text-white">User Input</h4>
+                            <h4 class="text-white">{{ sel_result }}</h4>
                             <h5 class="text-white">We have the results for you!</h5>
                             <!--<p class="text-black-50 mb-0">Could give a bit of insight here, e.g. what class label from places365.</p>-->
                         </div>
@@ -83,7 +96,7 @@
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
                                     <h4 class="text-white">Image 1</h4>
                                     <p class="mb-0 text-white-50">Lyngen, Troms og Finnmark, Norge</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = 0.445</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = {{ cos1 }}</p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
                                 </div>
                             </div>
