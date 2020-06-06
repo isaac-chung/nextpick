@@ -222,6 +222,8 @@ def create_df_for_map_plot(searches, pd_files):
                 [locations.loc[locations['id'].isin(name)][['latitude', 'longitude']], for_plotly])
             f.close()
 
+    for_plotly['paths'] = list(pd_files.iloc[idx]['path'])
+    for_plotly['cos_diff'] = searches[1]
     for_plotly = for_plotly.reset_index(drop=True)
     keys_for_display = ['country']
     gl = Nominatim(user_agent='default')
