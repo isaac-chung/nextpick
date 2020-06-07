@@ -14,7 +14,6 @@ import pandas as pd
 import plotly.express as px
 import seaborn as sns
 sns.set_style("darkgrid")
-from time import time
 import torch
 import torch.nn as nn
 import torchvision.models as models
@@ -35,7 +34,7 @@ def load_pretrained_model(arch='resnet18'):
     Model options are 'alexnet','densenet161','resnet18', and 'resnet50'.
     By default the 'resnet18' architecture is chosen for its lowest memory.
     Class labels follow 'categories_places365.txt'.
-    :return: pretrained PyTorch model
+    :return: model for generating feature embeddings and full model for class label prediction
     '''
 
     # make sure os.getcwd() returns the project home directory.
@@ -43,14 +42,16 @@ def load_pretrained_model(arch='resnet18'):
 
     # load pre-trained weights
     model = models.__dict__[arch](num_classes=365)
+    model_full = models.__dict__[arch](num_classes=365)
     checkpoint = torch.load(model_file, map_location=lambda storage, loc: storage)
     state_dict = {str.replace(k, 'module.', ''): v for k, v in checkpoint['state_dict'].items()}
     model.load_state_dict(state_dict)
+    model_full.load_state_dict(state_dict)
     model.fc_backup = model.fc
     model.fc = nn.Sequential()
     # model.eval()
 
-    return model
+    return model, model_full
 
 
 def load_pkl_paths(folder):
