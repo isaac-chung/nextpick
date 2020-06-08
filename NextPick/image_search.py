@@ -49,7 +49,7 @@ def load_pretrained_model(arch='resnet18'):
     model_full.load_state_dict(state_dict)
     model.fc_backup = model.fc
     model.fc = nn.Sequential()
-    # model.eval()
+    model_full.eval()
 
     return model, model_full
 
@@ -124,7 +124,7 @@ class ImageDataset(Dataset):
         return self.df_files
 
 
-def getVectorIndex(model, image_loader):
+def get_vector_index(model, image_loader):
     """
     Evaluate model to get vector embeddings (features) and build tree for annoy indexing
     Arguments:
@@ -144,7 +144,7 @@ def getVectorIndex(model, image_loader):
     return t
 
 
-def evalTestImage(test_img, model, annoy_index, top_n=5):
+def eval_test_image(test_img, model, annoy_index, top_n=5):
     '''
     Search for the closest image as the test iamge.
     :param test_img: path of test image
@@ -212,7 +212,8 @@ def create_df_for_map_plot(searches, pd_files):
     :return: DataFrame of the searches' location and address
     '''
     idx = searches[0]  # list of annoy index results
-    class_labels = list(pd_files.iloc[idx].label.drop_duplicates())
+    labels = pd_files.iloc[idx].label
+    class_labels = list(labels.drop_duplicates()) # avoid looking up the same label multiple times
     name = list(pd_files.iloc[idx]['name'].str.rstrip('.jpg'))  # list of photo id's
 
     for_plotly = pd.DataFrame(columns=['latitude', 'longitude'])
@@ -224,18 +225,24 @@ def create_df_for_map_plot(searches, pd_files):
             f.close()
 
     for_plotly['paths'] = list(pd_files.iloc[idx]['path'])
+    for_plotly['labels'] = list(labels)
     for_plotly['cos_diff'] = searches[1]
     for_plotly = for_plotly.reset_index(drop=True)
     keys_for_display = ['country']
     gl = Nominatim(user_agent='default')
-    for_plotly['latlon'] = list(zip(for_plotly['latitude'], for_plotly['longitude']))
+    for_plotly['latlon'] = list(zip(for_plotly['latitude'], for_plotly['longitude'])) # for GeoPy reverse method
     locations = []
     display_names = []
 
     for i, row in for_plotly.iterrows():
         location = gl.reverse(for_plotly.iloc[i]['latlon'])
         locations.append(location.address)
-        display_names.append(", ".join([location.raw['address'][key] for key in keys_for_display]))
+        try:
+            display_names.append(", ".join([location.raw['address'][key] for key in keys_for_display]))
+        except:
+            # if this place does not have a country, might as well see the entire address.
+            display_names.append(location.address)
+
     for_plotly['address'] = locations
     for_plotly['display'] = display_names
 
@@ -268,11 +275,11 @@ if __name__ == '__main__':
     annoy_path = 'notebooks/annoy_idx.annoy'
 
     if os.path.exists(annoy_path):
-        annoy_idx_loaded = AnnoyIndex(512)
+        annoy_idx_loaded = AnnoyIndex(512, metric='angular')
         annoy_idx_loaded.load(annoy_path)
 
     test_img = 'notebooks/ski-test-img.png'
-    searches = evalTestImage(test_img, model, annoy_idx_loaded)
+    searches = eval_test_image(test_img, model, annoy_idx_loaded)
 
     # plot images and map. Note that these plor functions call
     # create_df_for_map_plot, and also finds the path of the images
