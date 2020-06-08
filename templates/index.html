@@ -54,16 +54,6 @@
                             <button type="submit" class="btn btn-secondary btn-lg" form="selection">Go</button>
                         </div>
                     </form>
-                    <!-- condition for selection -->
-                    {% if flag=="1" %}
-                    <div class="row mt-4 justify-content-center">
-                        <h4 class="text-white text-center text-uppercase">You typed {{ sel_input }}!</h4>
-                    </div>
-                    {% elif flag=="0" %}
-                    <div class="row mt-4 justify-content-center">
-                        <h4 class="text-white text-center text-uppercase">{{ sel_form_result }}</h4>
-                    </div>
-                    {% endif %}
                     <!--<br><h2 class="text-white mx-auto mt-2 mb-5">Or upload your own image!</h2>
                     <form class="myform.cgi">
                         <label for="upload"> Select an image file to upload</label>
@@ -73,6 +63,9 @@
                 </div>
             </div>
         </header>
+
+        <!-- condition for selection -->
+        {% if flag=="1" %}
         <!-- Projects-->
         <section class="projects-section bg-black" id="projects">
             <div class="container">
@@ -81,7 +74,7 @@
                     <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="../static/assets/img/ski-test-img.png" width="600" height="400" alt="" /></div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <h4 class="text-white">{{ sel_result }}</h4>
+                            <h4 class="text-white">You've entered this image.</h4>
                             <h5 class="text-white">We have the results for you!</h5>
                             <!--<p class="text-black-50 mb-0">Could give a bit of insight here, e.g. what class label from places365.</p>-->
                         </div>
@@ -95,8 +88,8 @@
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
                                     <h4 class="text-white">Image 1</h4>
-                                    <p class="mb-0 text-white-50">Lyngen, Troms og Finnmark, Norge</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = {{ cos1 }}</p>
+                                    <p class="mb-0 text-white-50">{{ address[0] }}</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = {{ cos[0] }}</p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
                                 </div>
                             </div>
@@ -111,8 +104,8 @@
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
                                     <h4 class="text-white">Image 2</h4>
-                                    <p class="mb-0 text-white-50">Les Florins, Risoul, Briançon, Hautes-Alpes, Provence-Alpes-Côte d'Azur, France métropolitaine, 05600, France</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = 0.510</p>
+                                    <p class="mb-0 text-white-50">{{ address[1] }}</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = {{ cos[1] }}</p>
                                     <hr class="d-none d-lg-block mb-0 mr-0" />
                                 </div>
                             </div>
@@ -127,8 +120,8 @@
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
                                     <h4 class="text-white">Image 3</h4>
-                                    <p class="mb-0 text-white-50">Engstlen-Jochpass, Engstlenalp, Innertkirchen, Verwaltungskreis Interlaken-Oberhasli, Verwaltungsregion Oberland, Bern/Berne, 3862, Switzerland</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = 0.521</p>
+                                    <p class="mb-0 text-white-50">{{ address[2] }}</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = {{ cos[2] }}</p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
                                 </div>
                             </div>
@@ -143,8 +136,8 @@
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
                                     <h4 class="text-white">Image 4</h4>
-                                    <p class="mb-0 text-white-50">Mustafa Asım Köksal Mahallesi, Develi, Kayseri, İç Anadolu Bölgesi, 38400, Türkiye</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = 0.531</p>
+                                    <p class="mb-0 text-white-50">{{ address[3] }}</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = {{ cos[3] }}</p>
                                     <hr class="d-none d-lg-block mb-0 mr-0" />
                                 </div>
                             </div>
@@ -159,8 +152,8 @@
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
                                     <h4 class="text-white">Image 5</h4>
-                                    <p class="mb-0 text-white-50">Tekir Yaylası, Melikgazi, Kayseri, İç Anadolu Bölgesi, Türkiye</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = 0.531 {{ output }}</p>
+                                    <p class="mb-0 text-white-50">{{ address[4] }}</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = {{ cos[4] }}</p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
                                 </div>
                             </div>
@@ -169,29 +162,18 @@
                 </div>
             </div>
         </section>
-
+        <!-- Map section -->
         <section class="map-section bg-black" id="map">
             <div class="row justify-content-center no-gutters mt-0">
                 <img src="../static/assets/img/newplot.png" width="1000" height="500"/>
             </div>
         </section>
+        {% elif flag=="0" %}
+        <div class="row mt-4 justify-content-center">
+            <h4 class="text-white text-center text-uppercase">{{ sel_form_result }}</h4>
+        </div>
+        {% endif %}
 
-        <!-- Try Section
-        <section class="bg-primary mb-0" id="try">
-            <div class="container">
-                <div class="row justify-content-center no-gutters mt-0">
-                    <form action="#projects" method="POST">
-                        <input type="text" id="test" name="test"><br>
-                        <input type="submit" value="submit">
-                    </form>
-                </div>
-                {% if some_image %}
-                <h4 class="text-white">{{ some_input }} - Microblog</h4>
-                {% else %}
-                <h4 class="text-white">Welcome to Microblog!</h4>
-                {% endif %}
-            </div>
-        </section>-->
 
         <!-- Contact-->
         <section class="contact-section bg-black" id="contact">
