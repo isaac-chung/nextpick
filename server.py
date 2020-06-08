@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, session, make_response
+from flask import Flask, render_template, request, send_from_directory
 from NextPick.image_search import *
-from NextPick.plotly_map import create_plot, get_input_latlon, get_distances
+from NextPick.plotly_map import create_plot, get_input_latlon, get_distances, get_top5_distance
 import os
+from config import DATA_FOLDER
 
 # Create the application object
 app = Flask(__name__)
@@ -34,13 +35,17 @@ def output():
 	if selection == "ski":
 		print("..ski tag")
 		test_img = 'notebooks/ski-test-img.png'
-		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=20) # returns more than top 5 for processing
+		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=30) # returns more than top 5 for processing
 		df = create_df_for_map_plot(searches, pd_files)
-		bar = create_plot(df)
 		input_latlon = get_input_latlon(input_location)
 		df = get_distances(input_latlon, df)
+		df = get_top5_distance(df)
+		bar = create_plot(df)
+
 		return render_template("index.html", title=title_text,flag="1", sel_input=selection,
-							   df=df, plot=bar, input_location=input_location, input_latlon=input_latlon
+							   df=df, plot=bar, input_location=input_location,
+							   input_latlon=input_latlon,
+							   my_path='/ski resort/49788543373.jpg'
 							   )
 	elif selection == "war_mem":
 		print("..war_mem tag")
@@ -58,6 +63,11 @@ def output():
 						   some_output=some_output,
 						   sel_input=selection,
 						   sel_form_result="Empty")
+
+
+@app.route('/<path:filename>')
+def download_file(filename):
+	return send_from_directory(DATA_FOLDER, filename, as_attachment=True)
 
 
 # start the server with the 'run()' method

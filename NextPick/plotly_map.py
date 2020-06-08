@@ -53,7 +53,7 @@ def get_distances(input_latlon, df):
     return df
 
 
-def get_top5_distance(df, closest):
+def get_top5_distance(df, closest=True):
     '''
     :param df: dataframe output from get_distances
     :param closest: boolean
@@ -61,8 +61,10 @@ def get_top5_distance(df, closest):
     '''
     if closest:
         print('...Ascending')
-        df5 = df.sort_values('dist', ascending=True).head()
+        df5 = df.sort_values('dist', ascending=True).head(5)
+        df5 = df5.reset_index(drop=True)
     else:
         print('...Descending')
-        df5 = df.sort_values('dist', ascending=True).head()
+        df5 = df.nlargest(5, 'dist')
+        df5 = df5.reset_index(drop=True)
     return df5

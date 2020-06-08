@@ -87,7 +87,9 @@
                 </div>
                 <!-- image 1 Row-->
                 <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                    <div class="col-lg-6"><img class="img-fluid" src="../static/assets/img/49788543373.jpg" width="600" height="400" alt="" /></div>
+                    <div class="col-lg-6">
+                        <img class="img-fluid" src="{{ url_for('download_file', filename=df['paths'][0]) }}" width="600" height="400" alt="" />
+                    </div>
                     <div class="col-lg-6">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
@@ -104,7 +106,7 @@
                 </div>
                 <!-- image 2 Row-->
                 <div class="row justify-content-center no-gutters">
-                    <div class="col-lg-6"><img class="img-fluid" src="../static/assets/img/49455542272.jpg" width="600" height="400" alt="" /></div>
+                    <div class="col-lg-6"><img class="img-fluid" src="{{ url_for('download_file', filename=df['paths'][1]) }}" width="600" height="400" alt="" /></div>
                     <div class="col-lg-6 order-lg-first">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
@@ -112,6 +114,7 @@
                                     <h4 class="text-white">Image 2</h4>
                                     <p class="mb-0 text-white-50">{{ df['address'][1] }}</p>
                                     <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][1] }}</p>
+                                    <p class="mb-0 text-white-50">Distance to you = {{ df['dist'][1] }} km</p>
                                     <hr class="d-none d-lg-block mb-0 mr-0" />
                                 </div>
                             </div>
@@ -120,7 +123,7 @@
                 </div>
                 <!-- image 3 Row-->
                 <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                    <div class="col-lg-6"><img class="img-fluid" src="../static/assets/img/49788543528.jpg" width="600" height="400" alt="" /></div>
+                    <div class="col-lg-6"><img class="img-fluid" src="{{ url_for('download_file', filename=df['paths'][2]) }}" width="600" height="400" alt="" /></div>
                     <div class="col-lg-6">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
@@ -128,6 +131,7 @@
                                     <h4 class="text-white">Image 3</h4>
                                     <p class="mb-0 text-white-50">{{ df['address'][2] }}</p>
                                     <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][2] }}</p>
+                                    <p class="mb-0 text-white-50">Distance to you = {{ df['dist'][2] }} km</p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
                                 </div>
                             </div>
@@ -136,7 +140,7 @@
                 </div>
                 <!-- image 4 Row-->
                 <div class="row justify-content-center no-gutters">
-                    <div class="col-lg-6"><img class="img-fluid" src="../static/assets/img/49458494093.jpg" width="600" height="400" alt="" /></div>
+                    <div class="col-lg-6"><img class="img-fluid" src="{{ url_for('download_file', filename=df['paths'][3]) }}" width="600" height="400" alt="" /></div>
                     <div class="col-lg-6 order-lg-first">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
@@ -144,6 +148,7 @@
                                     <h4 class="text-white">Image 4</h4>
                                     <p class="mb-0 text-white-50">{{ df['address'][3] }}</p>
                                     <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][3] }}</p>
+                                    <p class="mb-0 text-white-50">Distance to you = {{ df['dist'][3] }} km</p>
                                     <hr class="d-none d-lg-block mb-0 mr-0" />
                                 </div>
                             </div>
@@ -152,7 +157,7 @@
                 </div>
                 <!-- image 5 Row-->
                 <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                    <div class="col-lg-6"><img class="img-fluid" src="../static/assets/img/33853719818.jpg" width="600" height="400" alt="" /></div>
+                    <div class="col-lg-6"><img class="img-fluid" src="{{ url_for('download_file', filename=df['paths'][4]) }}" width="600" height="400" alt="" /></div>
                     <div class="col-lg-6">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
@@ -160,6 +165,7 @@
                                     <h4 class="text-white">Image 5</h4>
                                     <p class="mb-0 text-white-50">{{ df['address'][4] }}</p>
                                     <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][4] }}</p>
+                                    <p class="mb-0 text-white-50">Distance to you = {{ df['dist'][4] }} km</p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
                                 </div>
                             </div>
@@ -174,7 +180,13 @@
                 <div class="chart" id="bargraph">
                     <script>
                         var graphs = {{plot | safe}};
-                        Plotly.plot('bargraph',graphs);
+                        var layout = { geo: { showcountries: true,
+                                              fitbounds: "locations"
+                                            },
+                                       paper_bgcolor: "#111",
+                                       plot_bgcolor: "#000" <!-- this does not work-->
+                                    }
+                        Plotly.plot('bargraph',graphs, layout);
                     </script>
                 </div>
             </div>

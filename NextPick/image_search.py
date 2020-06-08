@@ -79,6 +79,7 @@ def load_data_paths(folder):
     img_paths_list = []
     labels_list = []
     names_list = []
+    sub_paths = []
 
     for cl in class_names:
         # skip all .pkl files
@@ -88,11 +89,13 @@ def load_data_paths(folder):
             img_paths_list.append(full_path)
             labels_list.append(cl)
             names_list.append(img)
+            sub_paths.append('/' + os.path.join(cl, img))
 
-    df = pd.DataFrame(columns=['path', 'label', 'name'])
+    df = pd.DataFrame(columns=['path', 'label', 'name', 'sub_paths'])
     df['path'] = img_paths_list
     df['label'] = labels_list
     df['name'] = names_list
+    df['sub_paths'] = sub_paths
     return df
 
 
@@ -225,7 +228,8 @@ def create_df_for_map_plot(searches, pd_files):
                 [locations.loc[locations['id'].isin(name)][['latitude', 'longitude']], for_plotly])
             f.close()
 
-    for_plotly['paths'] = list(pd_files.iloc[idx]['path'])
+    for_plotly['paths'] = list(pd_files.iloc[idx]['sub_paths'])
+    for_plotly['paths'] = for_plotly['paths'].str.replace('\\','/')
     for_plotly['labels'] = list(labels)
     for_plotly['cos_diff'] = np.around(searches[1], 3)
     for_plotly = for_plotly.reset_index(drop=True)
