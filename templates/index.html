@@ -15,8 +15,12 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../static/css/styles.css" rel="stylesheet" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- image-picker -->
         <script src="../static/js/image-picker.min.js"></script>
         <link rel="stylesheet" href="../static/css/image-picker.css" />
+        <!-- plotly Dash -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -50,6 +54,7 @@
                             $("select").imagepicker()
                             $("select").data("picker").selected_values()
                         </script>
+                        <input class="form-control" type="text" id="input_location" name="input_location" value="Toronto, Canada"/>
                         <div>
                             <button type="submit" class="btn btn-secondary btn-lg" form="selection">Go</button>
                         </div>
@@ -74,7 +79,7 @@
                     <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="../static/assets/img/ski-test-img.png" width="600" height="400" alt="" /></div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <h4 class="text-white">You've entered this image.</h4>
+                            <h4 class="text-white">You've entered this image, and you are in {{ input_location}}.</h4>
                             <h5 class="text-white">We have the results for you!</h5>
                             <!--<p class="text-black-50 mb-0">Could give a bit of insight here, e.g. what class label from places365.</p>-->
                         </div>
@@ -88,8 +93,9 @@
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
                                     <h4 class="text-white">Image 1</h4>
-                                    <p class="mb-0 text-white-50">{{ address[0] }}</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = {{ cos[0] }}</p>
+                                    <p class="mb-0 text-white-50">{{ df['address'][0] }}</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][0] }}</p>
+                                    <p class="mb-0 text-white-50">Distance to you = {{ df['dist'][0] }} km</p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
                                 </div>
                             </div>
@@ -104,8 +110,8 @@
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
                                     <h4 class="text-white">Image 2</h4>
-                                    <p class="mb-0 text-white-50">{{ address[1] }}</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = {{ cos[1] }}</p>
+                                    <p class="mb-0 text-white-50">{{ df['address'][1] }}</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][1] }}</p>
                                     <hr class="d-none d-lg-block mb-0 mr-0" />
                                 </div>
                             </div>
@@ -120,8 +126,8 @@
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
                                     <h4 class="text-white">Image 3</h4>
-                                    <p class="mb-0 text-white-50">{{ address[2] }}</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = {{ cos[2] }}</p>
+                                    <p class="mb-0 text-white-50">{{ df['address'][2] }}</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][2] }}</p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
                                 </div>
                             </div>
@@ -136,8 +142,8 @@
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
                                     <h4 class="text-white">Image 4</h4>
-                                    <p class="mb-0 text-white-50">{{ address[3] }}</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = {{ cos[3] }}</p>
+                                    <p class="mb-0 text-white-50">{{ df['address'][3] }}</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][3] }}</p>
                                     <hr class="d-none d-lg-block mb-0 mr-0" />
                                 </div>
                             </div>
@@ -152,8 +158,8 @@
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
                                     <h4 class="text-white">Image 5</h4>
-                                    <p class="mb-0 text-white-50">{{ address[4] }}</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = {{ cos[4] }}</p>
+                                    <p class="mb-0 text-white-50">{{ df['address'][4] }}</p>
+                                    <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][4] }}</p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
                                 </div>
                             </div>
@@ -165,7 +171,12 @@
         <!-- Map section -->
         <section class="map-section bg-black" id="map">
             <div class="row justify-content-center no-gutters mt-0">
-                <img src="../static/assets/img/newplot.png" width="1000" height="500"/>
+                <div class="chart" id="bargraph">
+                    <script>
+                        var graphs = {{plot | safe}};
+                        Plotly.plot('bargraph',graphs);
+                    </script>
+                </div>
             </div>
         </section>
         {% elif flag=="0" %}

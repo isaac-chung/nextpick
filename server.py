@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, make_response
 from NextPick.image_search import *
+from NextPick.plotly_map import create_plot, get_input_latlon, get_distances
 import os
 
 # Create the application object
@@ -27,16 +28,19 @@ def index():
 def output():
 	title_text = 'NextPick - by Isaac Chung'
 	selection = request.args.get("selection")
+	input_location = request.args.get("input_location")
 
 	# Case if empty
 	if selection == "ski":
 		print("..ski tag")
 		test_img = 'notebooks/ski-test-img.png'
-		searches = eval_test_image(test_img, model, annoy_idx_loaded)
+		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=20) # returns more than top 5 for processing
 		df = create_df_for_map_plot(searches, pd_files)
-
-		return render_template("index.html", title=title_text,flag="1",sel_input=selection,
-							   cos=df['cos_diff'], address=df['address']
+		bar = create_plot(df)
+		input_latlon = get_input_latlon(input_location)
+		df = get_distances(input_latlon, df)
+		return render_template("index.html", title=title_text,flag="1", sel_input=selection,
+							   df=df, plot=bar, input_location=input_location, input_latlon=input_latlon
 							   )
 	elif selection == "war_mem":
 		print("..war_mem tag")
