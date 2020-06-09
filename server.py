@@ -32,9 +32,17 @@ def output():
 	input_location = request.args.get("input_location")
 
 	# Case if empty
-	if selection == "ski":
-		print("..ski tag")
-		test_img = 'notebooks/ski-test-img.png'
+	if selection != " ":
+		print("..tag not empty")
+		if selection == "ski":
+			test_img = 'notebooks/ski-test-img.png'
+			in_img = "assets/img/ski-test-img.png"
+		elif selection == "war_mem":
+			test_img = 'notebooks/test-img-war-mem.jpg'
+			in_img = "assets/img/test-img-war-mem.jpg"
+		elif selection == "banff":
+			test_img = "static/assets/img/banff.jpg"
+			in_img = "assets/img/banff.jpg"
 		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=30) # returns more than top 5 for processing
 		df = create_df_for_map_plot(searches, pd_files)
 		input_latlon = get_input_latlon(input_location)
@@ -42,27 +50,16 @@ def output():
 		df = get_top5_distance(df)
 		bar = create_plot(df)
 
-		return render_template("index.html", title=title_text,flag="1", sel_input=selection,
+		return render_template("results.html", title=title_text, flag="1", sel_input=selection,
 							   df=df, plot=bar, input_location=input_location,
-							   input_latlon=input_latlon,
-							   my_path='/ski resort/49788543373.jpg'
+							   input_latlon=input_latlon, input_pic=in_img
 							   )
-	elif selection == "war_mem":
-		print("..war_mem tag")
-		return render_template("index.html",
-							   title=title_text,
-							   flag="1",
-							   sel_input=selection,
-							   sel_result="memorialzzzz")
 	else:
-		print("..whatever")
-		some_output = "yeay!"
+		print("..tag empty")
 	return render_template("index.html",
-						   title=title_text,
-						   flag="0",
-						   some_output=some_output,
-						   sel_input=selection,
-						   sel_form_result="Empty")
+						   title=title_text, flag="0", sel_input=selection,
+						   sel_form_result="Empty"
+						   )
 
 
 @app.route('/<path:filename>')

@@ -61,10 +61,12 @@ def get_top5_distance(df, closest=True):
     '''
     if closest:
         print('...Ascending')
-        df5 = df.sort_values('dist', ascending=True).head(5)
+        df5 = df.nsmallest(5, 'dist')
+        df5 = df5.sort_values(by=['cos_diff'], ascending=True)
         df5 = df5.reset_index(drop=True)
     else:
         print('...Descending')
         df5 = df.nlargest(5, 'dist')
+        df5 = df5.sort_values(by=['cos_diff'], ascending=False)
         df5 = df5.reset_index(drop=True)
     return df5

@@ -31,7 +31,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <!--<li class="nav-item"><a class="nav-link text-white js-scroll-trigger" href="#about">About</a></li>-->
-                        <li class="nav-item"><a class="nav-link text-white js-scroll-trigger" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link text-white js-scroll-trigger" href="#projects" id="project_button">Projects</a></li>
                         <li class="nav-item"><a class="nav-link text-white js-scroll-trigger" href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -47,8 +47,9 @@
                     <br><h2 class="text-white-50 mx-auto mt-2 mb-5">Choose from one of the following images</h2>
                     <form action="/output" id="selection">
                         <select class="image-picker" show-html name="selection">
-                            <option data-img-src="../static/assets/img/ski-test-img.jpg" width="200" height="120" value="ski"></option>
-                            <option data-img-src="../static/assets/img/test-img-war-mem.jpg" width="200" height="120" value="war_mem"></option>
+                            <option data-img-src="../static/assets/img/ski-test-img.jpg" class="ipicker" value="ski"></option>
+                            <option data-img-src="../static/assets/img/banff_s.jpg" class="ipicker" value="banff"></option>
+                            <option data-img-src="../static/assets/img/test-img-war-mem.jpg" class="ipicker" value="war_mem"></option>
                         </select>
                         <script>
                             $("select").imagepicker()
@@ -56,7 +57,7 @@
                         </script>
                         <input class="form-control" type="text" id="input_location" name="input_location" value="Toronto, Canada"/>
                         <div>
-                            <button type="submit" class="btn btn-secondary btn-lg" form="selection">Go</button>
+                            <button type="submit" class="btn btn-secondary btn-lg text-white" form="selection">Go</button>
                         </div>
                     </form>
                     <!--<br><h2 class="text-white mx-auto mt-2 mb-5">Or upload your own image!</h2>
@@ -68,135 +69,6 @@
                 </div>
             </div>
         </header>
-
-        <!-- condition for selection -->
-        {% if flag=="1" %}
-        <!-- Projects-->
-        <section class="projects-section bg-black" id="projects">
-            <div class="container">
-                <!-- Input image Row-->
-                <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="../static/assets/img/ski-test-img.png" width="600" height="400" alt="" /></div>
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="featured-text text-center text-lg-left">
-                            <h4 class="text-white">You've entered this image, and you are in {{ input_location}}.</h4>
-                            <h5 class="text-white">We have the results for you!</h5>
-                            <!--<p class="text-black-50 mb-0">Could give a bit of insight here, e.g. what class label from places365.</p>-->
-                        </div>
-                    </div>
-                </div>
-                <!-- image 1 Row-->
-                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                    <div class="col-lg-6">
-                        <img class="img-fluid" src="{{ url_for('download_file', filename=df['paths'][0]) }}" width="600" height="400" alt="" />
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white">Image 1</h4>
-                                    <p class="mb-0 text-white-50">{{ df['address'][0] }}</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][0] }}</p>
-                                    <p class="mb-0 text-white-50">Distance to you = {{ df['dist'][0] }} km</p>
-                                    <hr class="d-none d-lg-block mb-0 ml-0" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- image 2 Row-->
-                <div class="row justify-content-center no-gutters">
-                    <div class="col-lg-6"><img class="img-fluid" src="{{ url_for('download_file', filename=df['paths'][1]) }}" width="600" height="400" alt="" /></div>
-                    <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Image 2</h4>
-                                    <p class="mb-0 text-white-50">{{ df['address'][1] }}</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][1] }}</p>
-                                    <p class="mb-0 text-white-50">Distance to you = {{ df['dist'][1] }} km</p>
-                                    <hr class="d-none d-lg-block mb-0 mr-0" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- image 3 Row-->
-                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                    <div class="col-lg-6"><img class="img-fluid" src="{{ url_for('download_file', filename=df['paths'][2]) }}" width="600" height="400" alt="" /></div>
-                    <div class="col-lg-6">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white">Image 3</h4>
-                                    <p class="mb-0 text-white-50">{{ df['address'][2] }}</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][2] }}</p>
-                                    <p class="mb-0 text-white-50">Distance to you = {{ df['dist'][2] }} km</p>
-                                    <hr class="d-none d-lg-block mb-0 ml-0" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- image 4 Row-->
-                <div class="row justify-content-center no-gutters">
-                    <div class="col-lg-6"><img class="img-fluid" src="{{ url_for('download_file', filename=df['paths'][3]) }}" width="600" height="400" alt="" /></div>
-                    <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Image 4</h4>
-                                    <p class="mb-0 text-white-50">{{ df['address'][3] }}</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][3] }}</p>
-                                    <p class="mb-0 text-white-50">Distance to you = {{ df['dist'][3] }} km</p>
-                                    <hr class="d-none d-lg-block mb-0 mr-0" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- image 5 Row-->
-                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                    <div class="col-lg-6"><img class="img-fluid" src="{{ url_for('download_file', filename=df['paths'][4]) }}" width="600" height="400" alt="" /></div>
-                    <div class="col-lg-6">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white">Image 5</h4>
-                                    <p class="mb-0 text-white-50">{{ df['address'][4] }}</p>
-                                    <p class="mb-0 text-white-50">Cosine diff = {{ df['cos_diff'][4] }}</p>
-                                    <p class="mb-0 text-white-50">Distance to you = {{ df['dist'][4] }} km</p>
-                                    <hr class="d-none d-lg-block mb-0 ml-0" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Map section -->
-        <section class="map-section bg-black" id="map">
-            <div class="row justify-content-center no-gutters mt-0">
-                <div class="chart" id="bargraph">
-                    <script>
-                        var graphs = {{plot | safe}};
-                        var layout = { geo: { showcountries: true,
-                                              fitbounds: "locations"
-                                            },
-                                       paper_bgcolor: "#111",
-                                       plot_bgcolor: "#000" <!-- this does not work-->
-                                    }
-                        Plotly.plot('bargraph',graphs, layout);
-                    </script>
-                </div>
-            </div>
-        </section>
-        {% elif flag=="0" %}
-        <div class="row mt-4 justify-content-center">
-            <h4 class="text-white text-center text-uppercase">{{ sel_form_result }}</h4>
-        </div>
-        {% endif %}
-
 
         <!-- Contact-->
         <section class="contact-section bg-black" id="contact">
