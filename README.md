@@ -21,5 +21,14 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-![app](/static_img/app_screenshot_wk2.PNG)
-The landing page allows the user to choose an image. 
+![app](/static_img/wk2_screenshots/landingpage.PNG)
+The landing page allows the user to choose an image and entered their current 
+location. 
+![app](/static_img/wk2_screenshots/image1.PNG)
+After an image is selected and the 'Go' button is clicked, the selected image
+and the entered location are shown. This is followed by 5 images, along with 
+their cosine difference to the input image and the distance to the current location.
+![app](/static_img/wk2_screenshots/image2.PNG)
+![app](/static_img/wk2_screenshots/image3.PNG)
+And finally, the locations of those images are visualized on a map.
+![app](/static_img/wk2_screenshots/bottom.PNG)
