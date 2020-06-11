@@ -56,6 +56,15 @@
                             $("select").data("picker").selected_values()
                         </script>
                         <input class="form-control" type="text" id="input_location" name="input_location" value="Toronto, Canada"/>
+                        <br>
+                        <div>
+                            <input type="radio" id="prox1" name="prox" value="near" checked>
+                            <label for="prox1" class="text-white">Near</label>
+                            <input type="radio" id="prox2" name="prox" value="far">
+                            <label for="prox2" class="text-white">Far</label>
+                            <input type="radio" id="prox3" name="prox" value="wherever">
+                            <label for="prox3" class="text-white">Wherever you are</label>
+                          </div>
                         <div>
                             <button type="submit" class="btn btn-secondary btn-lg text-white" form="selection">Go</button>
                         </div>

@@ -30,6 +30,7 @@ def output():
 	title_text = 'NextPick - by Isaac Chung'
 	selection = request.args.get("selection")
 	input_location = request.args.get("input_location")
+	prox = request.args.get("prox")
 
 	# Case if empty
 	if selection != " ":
@@ -43,12 +44,13 @@ def output():
 		elif selection == "banff":
 			test_img = "static/assets/img/banff.jpg"
 			in_img = "assets/img/banff.jpg"
-		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=40) # returns more than top 5 for processing
+		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=60) # returns more than top 5 for processing
 		df = create_df_for_map_plot(searches, pd_files)
 		input_latlon = get_input_latlon(input_location)
 		df = get_distances(input_latlon, df)
-		df = get_top5_distance(df)
-		map_plot = create_plot(df)
+
+		df = get_top5_distance(df, prox)
+		map_plot = create_plot(df, input_latlon)
 
 		return render_template("results.html", title=title_text, flag="1", sel_input=selection,
 							   df=df, plot=map_plot, input_location=input_location,
