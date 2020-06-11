@@ -1,32 +1,22 @@
-import plotly
 import plotly.graph_objs as go
 import numpy as np
 
 from geopy.geocoders import Nominatim
 from geopy.distance import distance
-import json
 
 
 def create_plot(df):
+    '''
+    :param df: dataframe output for get_top5_distance
+    :return: html string
+    '''
+    fig = go.Figure()
+    fig.add_trace(go.Scattergeo(lat=df['latitude'], lon=df['longitude'], hovertext=df['display']))
+    fig.update_layout(template='plotly_dark')
+    fig.update_geos(showcountries=True)
+    div = fig.to_html()
 
-    # fig = go.Figure()
-    # fig.add_trace(go.Scattergeo(lat=df['latitude'], lon=df['longitude']))
-    # fig.update_layout(dict(template='plotly_dark'))
-
-    fig = go.Scattergeo(lat=df['latitude'], lon=df['longitude'], hovertext=df['display'])
-    data = [fig]
-    # graph = [
-    #     dict(
-    #         data=[go.Scattergeo(lat=df['latitude'], lon=df['longitude'], hovertext=df['display'])],
-    #         layout=dict(
-    #             geo=dict(showcountries=True),
-    #             plot_bgcolor="black"
-    #         )
-    #     )
-    # ]
-
-    graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
-    return graphJSON
+    return div
 
 
 def get_input_latlon(location):

@@ -149,13 +149,6 @@
                 <div class="chart" id="bargraph">
                     <script>
                         var graphs = {{plot | safe}};
-                        var layout = { geo: { showcountries: true,
-                                              fitbounds: "locations"
-                                            },
-                                       paper_bgcolor: "#111",
-                                       plot_bgcolor: "#000" <!-- this does not work-->
-                                    }
-                        Plotly.plot('bargraph',graphs, layout);
                     </script>
                 </div>
             </div>
