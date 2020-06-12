@@ -222,7 +222,7 @@ def create_df_for_map_plot(searches, pd_files):
 
     for_plotly = pd.DataFrame(columns=['latitude', 'longitude'])
     for label in class_labels:
-        with open('notebooks/data/%s/%s.pkl' % (label, label), 'rb') as f:
+        with open('data/%s/%s.pkl' % (label, label), 'rb') as f:
             locations = pickle.load(f)
             for_plotly = pd.concat(
                 [locations.loc[locations['id'].isin(name)][['latitude', 'longitude']], for_plotly])
@@ -270,7 +270,7 @@ if __name__ == '__main__':
     load annoy index and make predictions / recommendations
     '''
 
-    input_dataset = ImageDataset('notebooks/data')
+    input_dataset = ImageDataset('data')
     bs = 100
     image_loader = torch.utils.data.DataLoader(input_dataset, batch_size=bs)
     model = load_pretrained_model()
@@ -286,7 +286,7 @@ if __name__ == '__main__':
     test_img = 'notebooks/ski-test-img.png'
     searches = eval_test_image(test_img, model, annoy_idx_loaded)
 
-    # plot images and map. Note that these plor functions call
+    # plot images and map. Note that these plot functions call
     # create_df_for_map_plot, and also finds the path of the images
     # from the indices (not in that order). Would be useful for web app.
     plot_input_and_similar(test_img, searches, pd_files)

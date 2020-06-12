@@ -8,7 +8,7 @@ from config import DATA_FOLDER
 app = Flask(__name__)
 
 # load index and model
-input_dataset = ImageDataset('notebooks/data')
+input_dataset = ImageDataset('data')
 bs = 100
 image_loader = torch.utils.data.DataLoader(input_dataset, batch_size=bs)
 model, model_full = load_pretrained_model()
