@@ -45,7 +45,13 @@
             <div class="container">
                 <!-- Input image Row-->
                 <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="{{ url_for('static', filename=input_pic) }}" width="600" height="400" alt="" /></div>
+                    <div class="col-xl-8 col-lg-7">
+                        {% if input_type=="preselect" %}
+                        <img class="img-fluid mb-3 mb-lg-0" src="{{ url_for('static', filename=input_pic) }}" width="600" height="400" alt="" />
+                        {% elif input_type=="upload" %}
+                        <img class="img-fluid mb-3 mb-lg-0" src="{{ input_pic }}" width="600" height="400" alt="" />
+                        {% endif %}
+                    </div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
                             <h4 class="text-white">You've entered this image, and you are in {{ input_location }}.</h4>

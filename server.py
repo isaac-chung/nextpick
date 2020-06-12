@@ -4,7 +4,7 @@ from NextPick.ImageDataset import ImageDataset
 from NextPick.plotly_map import create_plot, get_input_latlon, get_distances, get_top5_distance
 import os
 import config as cfg
-from werkzeug.utils import secure_filename
+from base64 import b64encode
 
 
 # Create the application object
@@ -39,6 +39,7 @@ def upload_img():
 		file = request.files['fileupload']
 		if file.filename == '':
 			print('..No selected file, but tag not empty')
+			input_type = 'preselect'
 			if selection == "ski":
 				test_img = 'notebooks/ski-test-img.png'
 				in_img = "assets/img/ski-test-img.png"
@@ -50,8 +51,12 @@ def upload_img():
 				in_img = "assets/img/banff.jpg"
 		if file:
 			print('.. using uploaded image')
+			input_type = 'upload'
 			test_img = file
-			in_img = file
+			encoded = b64encode(file.read()) # encode the binary
+			mime = "image/jpg"
+			in_img = "data:%s;base64,%s" %(mime, encoded.decode()) # remember to decode the encoded data
+
 
 		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=60)
 		df = create_df_for_map_plot(searches, pd_files)
@@ -63,7 +68,7 @@ def upload_img():
 
 		return render_template("results.html", title=title_text, flag="1",
 							   df=df, plot=map_plot, input_location=input_location,
-							   input_latlon=input_latlon, input_pic=in_img
+							   input_latlon=input_latlon, input_pic=in_img, input_type=input_type
 							   )
 	else:
 		render_template("index.html", title=title_text, flag="0",
