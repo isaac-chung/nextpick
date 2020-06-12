@@ -3,6 +3,8 @@ from NextPick.image_search import *
 from NextPick.plotly_map import create_plot, get_input_latlon, get_distances, get_top5_distance
 import os
 from config import DATA_FOLDER
+from werkzeug.utils import secure_filename
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 # Create the application object
 app = Flask(__name__)
@@ -25,26 +27,33 @@ def index():
 	title_text = 'NextPick - by Isaac Chung'
 	return render_template('index.html', title=title_text, username='chooch')
 
-@app.route('/output')
-def output():
-	title_text = 'NextPick - by Isaac Chung'
-	selection = request.args.get("selection")
-	input_location = request.args.get("input_location")
-	prox = request.args.get("prox")
 
-	# Case if empty
-	if selection != " ":
-		print("..tag not empty")
-		if selection == "ski":
-			test_img = 'notebooks/ski-test-img.png'
-			in_img = "assets/img/ski-test-img.png"
-		elif selection == "war_mem":
-			test_img = 'notebooks/test-img-war-mem.jpg'
-			in_img = "assets/img/test-img-war-mem.jpg"
-		elif selection == "banff":
-			test_img = "static/assets/img/banff.jpg"
-			in_img = "assets/img/banff.jpg"
-		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=60) # returns more than top 5 for processing
+@app.route("/image_upload", methods=['GET', 'POST'])
+def upload_img():
+	title_text = 'NextPick - by Isaac Chung'
+	selection = request.form.get("selection")
+	input_location = request.form.get("input_location")
+	prox = request.form.get("prox")
+
+	if request.method == 'POST':
+		file = request.files['fileupload']
+		if file.filename == '':
+			print('..No selected file, but tag not empty')
+			if selection == "ski":
+				test_img = 'notebooks/ski-test-img.png'
+				in_img = "assets/img/ski-test-img.png"
+			elif selection == "war_mem":
+				test_img = 'notebooks/test-img-war-mem.jpg'
+				in_img = "assets/img/test-img-war-mem.jpg"
+			elif selection == "banff":
+				test_img = "static/assets/img/banff.jpg"
+				in_img = "assets/img/banff.jpg"
+		if file:
+			print('.. using uploaded image')
+			test_img = file
+			in_img = file
+
+		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=60)
 		df = create_df_for_map_plot(searches, pd_files)
 		input_latlon = get_input_latlon(input_location)
 		df = get_distances(input_latlon, df)
@@ -52,16 +61,15 @@ def output():
 		df = get_top5_distance(df, prox)
 		map_plot = create_plot(df, input_latlon)
 
-		return render_template("results.html", title=title_text, flag="1", sel_input=selection,
+		return render_template("results.html", title=title_text, flag="1",
 							   df=df, plot=map_plot, input_location=input_location,
 							   input_latlon=input_latlon, input_pic=in_img
 							   )
 	else:
-		print("..tag empty")
-	return render_template("index.html",
-						   title=title_text, flag="0", sel_input=selection,
-						   sel_form_result="Empty"
-						   )
+		render_template("index.html",
+						title=title_text, flag="0", sel_input=selection,
+						sel_form_result="Empty"
+						)
 
 
 @app.route('/<path:filename>')
@@ -72,3 +80,4 @@ def download_file(filename):
 # start the server with the 'run()' method
 if __name__ == "__main__":
 	app.run(debug=True) #will run locally http://127.0.0.1:5000/
+

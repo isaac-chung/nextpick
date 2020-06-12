@@ -13,7 +13,7 @@ def create_plot(df, input_latlon):
     '''
     fig = go.Figure()
     fig.add_trace(go.Scattergeo(lat=df['latitude'], lon=df['longitude'],
-                                hovertext=df['display']))
+                                hovertext=df['display'], marker=dict(size=10)))
 
     sliders = [go.layout.Slider(dict(
         active=2,
@@ -29,7 +29,7 @@ def create_plot(df, input_latlon):
     fig.update_geos(showcountries=True)
 
     fig.add_trace(go.Scattergeo(lat=[input_latlon[0]], lon=[input_latlon[1]],
-                                hovertext="You are here"))
+                                hovertext="You are here", marker=dict(size=10)))
     fig.update_layout(showlegend=False)
 
     div = fig.to_html()

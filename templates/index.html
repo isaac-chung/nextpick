@@ -45,7 +45,7 @@
                     <h2 class="text-white mx-auto mt-2 mb-0">Pick your next travel locations by uploading a scenery picture.</h2>
 
                     <br><h2 class="text-white-50 mx-auto mt-2 mb-2">Choose from one of the following images</h2>
-                    <form action="/output" id="selection">
+                    <form action="/image_upload" method="POST" enctype="multipart/form-data" id="upload_form" name="upload_form">
                         <select class="image-picker" show-html name="selection">
                             <option data-img-src="../static/assets/img/ski-test-img.jpg" class="ipicker" value="ski"></option>
                             <option data-img-src="../static/assets/img/banff_s.jpg" class="ipicker" value="banff"></option>
@@ -57,6 +57,9 @@
                         </script>
                         <input class="form-control" type="text" id="input_location" name="input_location" value="Toronto, Canada"/>
                         <br>
+                        <h2 class="text-white mx-auto">Or upload your own image!</h2>
+                        <br><input type="file" name="fileupload" value="fileupload" id="upload" alt="Upload" width="100">
+<!--                        accept='image/png, image/jpeg, image/gif'-->
                         <div>
                             <input type="radio" id="prox1" name="prox" value="near" checked>
                             <label for="prox1" class="text-white">Near</label>
@@ -64,17 +67,9 @@
                             <label for="prox2" class="text-white">Far</label>
                             <input type="radio" id="prox3" name="prox" value="wherever">
                             <label for="prox3" class="text-white">Wherever you are</label>
-                          </div>
-                        <div>
-                            <button type="submit" class="btn btn-secondary btn-lg text-white" form="selection">Go</button>
                         </div>
+                        <button type="submit" class="btn btn-secondary text-white" form="upload_form">Go</button>
                     </form>
-                    <!--<br><h2 class="text-white mx-auto mt-2 mb-5">Or upload your own image!</h2>
-                    <form class="myform.cgi">
-                        <label for="upload"> Select an image file to upload</label>
-                        <br><input type="file" name="fileupload" value="fileupload" id="upload" alt="Upload" accept='image/png, image/jpeg, image/gif' width="100">
-                        <br> <input type="submit" value="Upload Image" id="upload" name="submit">
-                    </form>-->
                 </div>
             </div>
         </header>
