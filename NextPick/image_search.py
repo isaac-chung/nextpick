@@ -4,7 +4,6 @@
 
 from annoy import AnnoyIndex
 from geopy.geocoders import Nominatim
-import logging
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import imshow
 import os
@@ -19,12 +18,12 @@ import torch
 import torch.nn as nn
 import torchvision.models as models
 from torchvision import transforms as trn
-from torch.utils.data import Dataset, DataLoader
+import config as cfg
 
 
 # define image transformer
-transform = trn.Compose([trn.Resize((256,256)),
-                               trn.CenterCrop(224),
+transform = trn.Compose([trn.Resize(cfg.RESIZE),
+                               trn.CenterCrop(cfg.CROP),
                                trn.ToTensor(),
                                trn.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                               ])
@@ -42,8 +41,8 @@ def load_pretrained_model(arch='resnet18'):
     model_file = 'places365/%s_places365.pth.tar' %arch
 
     # load pre-trained weights
-    model = models.__dict__[arch](num_classes=365)
-    model_full = models.__dict__[arch](num_classes=365)
+    model = models.__dict__[arch](num_classes=cfg.NUMCLASS)
+    model_full = models.__dict__[arch](num_classes=cfg.NUMCLASS)
     checkpoint = torch.load(model_file, map_location=lambda storage, loc: storage)
     state_dict = {str.replace(k, 'module.', ''): v for k, v in checkpoint['state_dict'].items()}
     model.load_state_dict(state_dict)
@@ -74,60 +73,6 @@ def load_pkl_paths(folder):
     return df
 
 
-def load_data_paths(folder):
-    class_names = [fold for fold in os.listdir(folder)]  # this should get folder names at the 'abbey' level
-    img_paths_list = []
-    labels_list = []
-    names_list = []
-    sub_paths = []
-
-    for cl in class_names:
-        # skip all .pkl files
-        img_files = [f for f in os.listdir(os.path.join(folder, cl)) if '.pkl' not in f]
-        for img in img_files:
-            full_path = os.path.join(folder, cl, img)
-            img_paths_list.append(full_path)
-            labels_list.append(cl)
-            names_list.append(img)
-            sub_paths.append('/' + os.path.join(cl, img))
-
-    df = pd.DataFrame(columns=['path', 'label', 'name', 'sub_paths'])
-    df['path'] = img_paths_list
-    df['label'] = labels_list
-    df['name'] = names_list
-    df['sub_paths'] = sub_paths
-    return df
-
-
-class ImageDataset(Dataset):
-    """
-    A custom dataset to provide a batch of Images for hashing.
-    Images are normalized for Imagenet mean and sd.
-    Use the pandas dataframe get_file_df() for illustration purposes.
-    """
-    transform = None
-
-    def __init__(self, path):
-        self.df_files = load_data_paths(path)
-        self.transform = trn.Compose([trn.Resize((256, 256)),
-                               trn.CenterCrop(224),
-                               trn.ToTensor(),
-                               trn.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                              ])
-
-    def __getitem__(self, index):
-        data = Image.open(self.df_files.iloc[index].path, 'r')
-        data = data.convert('RGB')
-        tensor = self.transform(data)
-        return tensor, index
-
-    def __len__(self):
-        return len(self.df_files)
-
-    def get_file_df(self):
-        return self.df_files
-
-
 def get_vector_index(model, image_loader):
     """
     Evaluate model to get vector embeddings (features) and build tree for annoy indexing
@@ -137,14 +82,14 @@ def get_vector_index(model, image_loader):
     Returns:
         [annoy index] -- can be used for querying
     """
-    t = AnnoyIndex(512, metric='angular')  # 512 for resnet18
+    t = AnnoyIndex(cfg.RESNET18_FEAT, metric=cfg.ANNOY_METRIC)  # 512 for resnet18
     with torch.no_grad():
         model.eval()
         for batch_idx, (data, target) in enumerate(image_loader):
             outputs = model(data)
             for i in range(0, len(data)):
                 t.add_item(target[i], outputs[i])
-    t.build(20)
+    t.build(cfg.ANNOY_TREE)
     return t
 
 
@@ -264,30 +209,3 @@ def plot_map(searches, pd_files):
     fig = px.scatter_geo(df, lat='latitude', lon='longitude', text='display')
     fig.show()
 
-
-if __name__ == '__main__':
-    '''
-    load annoy index and make predictions / recommendations
-    '''
-
-    input_dataset = ImageDataset('data')
-    bs = 100
-    image_loader = torch.utils.data.DataLoader(input_dataset, batch_size=bs)
-    model = load_pretrained_model()
-
-    pd_files = input_dataset.get_file_df()
-
-    annoy_path = 'notebooks/annoy_idx.annoy'
-
-    if os.path.exists(annoy_path):
-        annoy_idx_loaded = AnnoyIndex(512, metric='angular')
-        annoy_idx_loaded.load(annoy_path)
-
-    test_img = 'notebooks/ski-test-img.png'
-    searches = eval_test_image(test_img, model, annoy_idx_loaded)
-
-    # plot images and map. Note that these plot functions call
-    # create_df_for_map_plot, and also finds the path of the images
-    # from the indices (not in that order). Would be useful for web app.
-    plot_input_and_similar(test_img, searches, pd_files)
-    plot_map(searches, pd_files)

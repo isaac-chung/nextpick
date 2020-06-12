@@ -1,24 +1,24 @@
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for
 from NextPick.image_search import *
+from NextPick.ImageDataset import ImageDataset
 from NextPick.plotly_map import create_plot, get_input_latlon, get_distances, get_top5_distance
 import os
-from config import DATA_FOLDER
+import config as cfg
 from werkzeug.utils import secure_filename
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
 
 # Create the application object
 app = Flask(__name__)
 
 # load index and model
-input_dataset = ImageDataset('data')
-bs = 100
-image_loader = torch.utils.data.DataLoader(input_dataset, batch_size=bs)
+input_dataset = ImageDataset(cfg.DATA_FOLDER)
+image_loader = torch.utils.data.DataLoader(input_dataset, batch_size=cfg.BATCH)
 model, model_full = load_pretrained_model()
 
 pd_files = input_dataset.get_file_df()
-annoy_path = 'notebooks/annoy_idx.annoy'
+annoy_path = cfg.ANNOY_PATH
 if os.path.exists(annoy_path):
-	annoy_idx_loaded = AnnoyIndex(512, metric='angular')
+	annoy_idx_loaded = AnnoyIndex(cfg.RESNET18_FEAT, metric=cfg.ANNOY_METRIC)
 	annoy_idx_loaded.load(annoy_path)
 
 
@@ -66,15 +66,13 @@ def upload_img():
 							   input_latlon=input_latlon, input_pic=in_img
 							   )
 	else:
-		render_template("index.html",
-						title=title_text, flag="0", sel_input=selection,
-						sel_form_result="Empty"
-						)
+		render_template("index.html", title=title_text, flag="0",
+						sel_input=selection, sel_form_result="Empty")
 
 
 @app.route('/<path:filename>')
 def download_file(filename):
-	return send_from_directory(DATA_FOLDER, filename, as_attachment=True)
+	return send_from_directory(cfg.DATA_FOLDER, filename, as_attachment=True)
 
 
 # start the server with the 'run()' method

@@ -15,17 +15,7 @@ def create_plot(df, input_latlon):
     fig.add_trace(go.Scattergeo(lat=df['latitude'], lon=df['longitude'],
                                 hovertext=df['display'], marker=dict(size=10)))
 
-    sliders = [go.layout.Slider(dict(
-        active=2,
-        steps=[
-            dict(label='Near'),
-            dict(label='Far')
-        ])
-    )]
-    fig.update_layout(template='plotly_dark',
-                      width=1100,
-                      height=600,
-                      sliders=sliders)
+    fig.update_layout(template='plotly_dark', width=1100, height=600)
     fig.update_geos(showcountries=True)
 
     fig.add_trace(go.Scattergeo(lat=[input_latlon[0]], lon=[input_latlon[1]],
@@ -86,5 +76,5 @@ def get_top5_distance(df, prox):
         df5 = df5.reset_index(drop=True)
     else:
         print("...Invalid input in PROX")
-        df = None
+        df5 = None
     return df5
