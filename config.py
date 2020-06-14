@@ -20,3 +20,6 @@ NUMCLASS = 365
 # upload image
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
+# top_n images
+TOP_N = 40
+

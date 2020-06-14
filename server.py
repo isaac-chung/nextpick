@@ -58,7 +58,7 @@ def upload_img():
 			in_img = "data:%s;base64,%s" %(mime, encoded.decode()) # remember to decode the encoded data
 
 
-		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=15)
+		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=cfg.TOP_N)
 		df = create_df_for_map_plot(searches, pd_files) # 0.5s per 1 top_n
 		input_latlon = get_input_latlon(input_location)
 		df = get_distances(input_latlon, df)
