@@ -43,9 +43,9 @@ def upload_img():
 			if selection == "ski":
 				test_img = 'notebooks/ski-test-img.png'
 				in_img = "assets/img/ski-test-img.png"
-			elif selection == "war_mem":
-				test_img = 'notebooks/test-img-war-mem.jpg'
-				in_img = "assets/img/test-img-war-mem.jpg"
+			elif selection == "venice":
+				test_img = 'notebooks/venice.jpg'
+				in_img = "assets/img/venice.jpg"
 			elif selection == "banff":
 				test_img = "static/assets/img/banff.jpg"
 				in_img = "assets/img/banff.jpg"
@@ -58,8 +58,8 @@ def upload_img():
 			in_img = "data:%s;base64,%s" %(mime, encoded.decode()) # remember to decode the encoded data
 
 
-		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=60)
-		df = create_df_for_map_plot(searches, pd_files)
+		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=15)
+		df = create_df_for_map_plot(searches, pd_files) # 0.5s per 1 top_n
 		input_latlon = get_input_latlon(input_location)
 		df = get_distances(input_latlon, df)
 

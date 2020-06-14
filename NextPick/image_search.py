@@ -178,23 +178,9 @@ def create_df_for_map_plot(searches, pd_files):
     for_plotly['labels'] = list(labels)
     for_plotly['cos_diff'] = np.around(searches[1], 3)
     for_plotly = for_plotly.reset_index(drop=True)
-    keys_for_display = ['country']
     gl = Nominatim(user_agent='default')
     for_plotly['latlon'] = list(zip(for_plotly['latitude'], for_plotly['longitude'])) # for GeoPy reverse method
-    locations = []
-    display_names = []
-
-    for i, row in for_plotly.iterrows():
-        location = gl.reverse(for_plotly.iloc[i]['latlon'])
-        locations.append(location.address)
-        try:
-            display_names.append(", ".join([location.raw['address'][key] for key in keys_for_display]))
-        except:
-            # if this place does not have a country, might as well see the entire address.
-            display_names.append(location.address)
-
-    for_plotly['address'] = locations
-    for_plotly['display'] = display_names
+    for_plotly['address'] = for_plotly['latlon'].apply(gl.reverse)
 
     return for_plotly
 

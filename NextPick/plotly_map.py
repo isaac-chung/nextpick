@@ -77,4 +77,6 @@ def get_top5_distance(df, prox):
     else:
         print("...Invalid input in PROX")
         df5 = None
+
+    df5['display'] = ['Image %d'%(i+1) for i in range(len(df5.index))]
     return df5
