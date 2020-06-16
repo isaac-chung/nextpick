@@ -8,13 +8,15 @@ import torch
 from base64 import b64encode
 from NextPick import app
 
+APP_PATH = '/home/ubuntu/application'
+
 # database
-DATA_FOLDER = "/home/ubuntu/application/NextPick/data"
+DATA_FOLDER = "%s/NextPick/data" %APP_PATH
 BATCH = 100
 # top_n images
 TOP_N = 20
 # annoy
-ANNOY_PATH = '/home/ubuntu/application/NextPick/NextPick/annoy_idx.annoy'
+ANNOY_PATH = '%s/NextPick/NextPick/annoy_idx.annoy' %APP_PATH
 ANNOY_METRIC = 'angular'
 RESNET18_FEAT = 512
 
@@ -55,13 +57,13 @@ def upload_img():
 			print('..No selected file, but tag not empty')
 			input_type = 'preselect'
 			if selection == "ski":
-				test_img = '/home/ubuntu/application/NextPick/static/assets/img/ski-test-img.png'
+				test_img = '%s/NextPick/static/assets/img/ski-test-img.png' %APP_PATH
 				in_img = 'assets/img/ski-test-img.png'
 			elif selection == "venice":
-				test_img = '/home/ubuntu/application/NextPick/static/assets/img/venice.jpg'
+				test_img = '%s/NextPick/static/assets/img/venice.jpg' %APP_PATH
 				in_img = "assets/img/venice.jpg"
 			elif selection == "banff":
-				test_img = "/home/ubuntu/application/NextPick/static/assets/img/banff.jpg"
+				test_img = "%s/NextPick/static/assets/img/banff.jpg" %APP_PATH
 				in_img = "assets/img/banff.jpg"
 		if file:
 			print('.. using uploaded image')
@@ -93,8 +95,4 @@ def upload_img():
 def download_file(filename):
 	return send_from_directory(DATA_FOLDER, filename, as_attachment=True)
 
-
-# start the server with the 'run()' method
-# if __name__ == "__main__":
-# 	app.run(debug=True) #will run locally http://127.0.0.1:5000/
 

@@ -17,6 +17,7 @@ NUMCLASS = 365
 RESNET18_FEAT = 512
 ANNOY_METRIC = 'angular'
 ANNOY_TREE = 20
+APP_PATH = '/home/ubuntu/application'
 
 # define image transformer
 transform = trn.Compose([trn.Resize((256, 256)),
@@ -35,7 +36,7 @@ def load_pretrained_model(arch='resnet18'):
     '''
 
     # make sure os.getcwd() returns the project home directory.
-    model_file = '/home/ubuntu/application/NextPick/NextPick/%s_places365.pth.tar' %arch
+    model_file = '%s/NextPick/NextPick/%s_places365.pth.tar' %(APP_PATH, arch)
 
     # load pre-trained weights
     model = models.__dict__[arch](num_classes=NUMCLASS)
@@ -122,7 +123,7 @@ def create_df_for_map_plot(searches, pd_files):
 
     for_plotly = pd.DataFrame(columns=['latitude', 'longitude'])
     for label in class_labels:
-        with open('/home/ubuntu/application/NextPick/data/%s/%s.pkl' % (label, label), 'rb') as f:
+        with open('%s/NextPick/data/%s/%s.pkl' % (APP_PATH, label, label), 'rb') as f:
             locations = pickle.load(f)
             for_plotly = pd.concat(
                 [locations.loc[locations['id'].isin(name)][['latitude', 'longitude']], for_plotly])
