@@ -26,19 +26,24 @@ are provided.
  
 
 ## How to use NextPick
-![app](/static_img/wk3_screenshots/landingpage.jpg)
 The landing page allows the user to choose an image, enter their current 
-location, and select a proximity preference. 
-![app](/static_img/wk3_screenshots/image1.jpg)
+location, and select a proximity preference.
+![app](/static_img/wk3_screenshots/landingpage.jpg) 
+
 After an image is selected and the 'Go' button is clicked, the selected image
-and the entered location are shown. This is followed by 5 images, along with 
+and the entered location are shown.
+![app](/static_img/wk3_screenshots/image1.jpg)
+
+ This is followed by 5 images, along with 
 their cosine difference to the input image and the distance to the current location.
 ![app](/static_img/wk3_screenshots/image2.jpg)
 ![app](/static_img/wk3_screenshots/image3.jpg)
+
 And finally, the locations of those images are visualized on a map. Labels for each
 data point is shown on hover. 
 ![app](/static_img/wk3_screenshots/map1.jpg)
 ![app](/static_img/wk3_screenshots/map3.jpg)
+
 The user can zoom in and out of the Plotly map
 ![app](/static_img/wk3_screenshots/map2.jpg)
 
