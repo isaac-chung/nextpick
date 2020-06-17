@@ -6,6 +6,7 @@ from NextPick.NextPick.plotly_map import create_plot, get_input_latlon, get_dist
 import os
 import torch
 from base64 import b64encode
+import pickle
 from NextPick import app
 
 APP_PATH = '/home/ubuntu/application'
@@ -29,8 +30,11 @@ app.secret_key = 'random'
 input_dataset = ImageDataset(DATA_FOLDER)
 image_loader = torch.utils.data.DataLoader(input_dataset, batch_size=BATCH)
 model, model_full = load_pretrained_model()
-
-pd_files = input_dataset.get_file_df()
+fname_df = '%s/NextPick/ski_pd_files.pkl' % APP_PATH
+with open(fname_df, 'rb') as f:
+	pd_files = pickle.load(f)
+	f.close()
+# pd_files = input_dataset.get_file_df()
 annoy_path = ANNOY_PATH
 if os.path.exists(annoy_path):
 	annoy_idx_loaded = AnnoyIndex(RESNET18_FEAT, metric=ANNOY_METRIC)
