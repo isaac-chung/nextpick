@@ -11,8 +11,9 @@ Website: [nextpick.live](http://nextpick.live)
 ## What is NextPick?
 There is an increasing portion of travellers saying that they use social media for planning their next trip, giving
 a rise to the trend of social media-inspired tourism in recent years. These social media-inspired travellers tend
-to go on "insta-holidays" and "mini-vacations". These factors are also paired with closer-by locations for travel
-time considerations. Combining the above creates the need for media and proximity driven searches for travel locations.
+to go on "insta-holidays" (picturesque places), and "mini-vacations" (short duration). Closer-by locations are also 
+favoured for travel time considerations. Combining the above creates the need for media and proximity driven searches 
+for travel locations.
 
 NextPick is my vision for addressing this need. It is a tool that recommends vacation spots based on an input image.
 Similar images, along with their locations, are returned based on cosine similarity between the images and geo-proximity
