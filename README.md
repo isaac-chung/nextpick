@@ -1,7 +1,7 @@
 # NextPick
 *Pick your next insta-vacation*
 
-Website: [nextpick.live](www.nextpick.live)
+Website: [nextpick.live](http://nextpick.live)
 
 <p float="left">
     <img src="/static_img/49770197542.jpg" height="250"/>
@@ -9,7 +9,7 @@ Website: [nextpick.live](www.nextpick.live)
 </p>
 
 ## What is NextPick?
-We notice an increasing portion of travellers saying that they use social media for planning their next trip, giving
+There is an increasing portion of travellers saying that they use social media for planning their next trip, giving
 a rise to the trend of social media-inspired tourism in recent years. These social media-inspired travellers tend
 to go on "insta-holidays" and "mini-vacations". These factors are also paired with closer-by locations for travel
 time considerations. Combining the above creates the need for media and proximity driven searches for travel locations.
