@@ -42,38 +42,41 @@
             <div class="container d-flex h-100 align-items-center">
                 <div class="mx-auto text-center">
                     <h1 class="text-uppercase">NextPick</h1>
-                    <h2 class="text-white mx-auto mt-2 mb-0">Pick your next insta-vacation!</h2>
+                    <h2 class="text-white mx-auto mt-2 mb-0">Pick your next insta-vacation destination!</h2>
+               </div>
+            </div>
+        </header>
 
-                    <br><h2 class="text-white-50 mx-auto mt-2 mb-2">Choose from one of the following images</h2>
-                    <form action="/image_upload" method="POST" enctype="multipart/form-data" id="upload_form" name="upload_form">
-                        <select class="image-picker" show-html name="selection">
+        <section class="contact-section bg-black align-items-center" id="content-section">
+            <div class="container text-center mx-auto">
+                <h2 class="text-white-50 mx-auto mt-2 mb-2">Choose from one of the following images</h2>
+                <form action="/image_upload" method="POST" enctype="multipart/form-data" id="upload_form" name="upload_form">
+                    <select class="image-picker" show-html name="selection">
                             <option data-img-src="static/assets/img/ski-test-img.jpg" class="ipicker" value="ski"></option>
                             <option data-img-src="static/assets/img/banff_s.jpg" class="ipicker" value="banff"></option>
                             <option data-img-src="static/assets/img/venice-s.jpg" class="ipicker" value="venice"></option>
                         </select>
-                        <script>
-                            $("select").imagepicker()
-                            $("select").data("picker").selected_values()
-                        </script>
-                        <input class="form-control" type="text" id="input_location" name="input_location" value="Toronto, Canada"/>
-                        <br>
-                        <h2 class="text-white mx-auto">Or upload your own image! (< 1MB)</h2>
-                        <br><input type="file" name="fileupload" value="fileupload" id="upload" alt="Upload" width="100">
-<!--                        accept='image/png, image/jpeg, image/gif'-->
-                        <div>
-                            <input type="radio" id="prox1" name="prox" value="near" checked>
-                            <label for="prox1" class="text-white">Near</label>
-                            <input type="radio" id="prox2" name="prox" value="far">
-                            <label for="prox2" class="text-white">Far</label>
-                            <input type="radio" id="prox3" name="prox" value="wherever">
-                            <label for="prox3" class="text-white">Wherever you are</label>
-                        </div>
-                        <button type="submit" class="btn btn-secondary text-white" form="upload_form">Go</button>
-                    </form>
-                </div>
+                    <script>
+                        $("select").imagepicker()
+                        $("select").data("picker").selected_values()
+                    </script>
+                    <input class="form-control" type="text" id="input_location" name="input_location" value="Toronto, Canada"/>
+                    <br><br>
+                    <h2 class="text-white-50 mx-auto">Or upload your own image! (<1 MB in size)</h2>
+                    <input type="file" name="fileupload" value="fileupload" id="upload" alt="Upload" width="100">
+<!--                    accept='image/png, image/jpeg, image/gif'-->
+                    <div>
+                        <input type="radio" id="prox1" name="prox" value="near" checked>
+                        <label for="prox1" class="text-white">Near</label>
+                        <input type="radio" id="prox2" name="prox" value="far">
+                        <label for="prox2" class="text-white">Far</label>
+                        <input type="radio" id="prox3" name="prox" value="wherever">
+                        <label for="prox3" class="text-white">Wherever you are</label>
+                    </div>
+                    <button type="submit" class="btn btn-secondary text-white" form="upload_form">Go</button>
+                </form>
             </div>
-        </header>
-
+        </section>
         <!-- Contact-->
         <section class="contact-section bg-black" id="contact">
             <div class="container">
