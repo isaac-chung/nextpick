@@ -58,7 +58,8 @@ Then, create a virtual environment and have all the dependencies in `requirement
 we can use the following to create one called `insight` with Python 3.7 and all packages installed.
 ```
 conda create -n insight python=3.7
-pip install r requirements.txt
+source activate insight
+pip install -r requirements.txt
 ```
 I am currently keeping the image data on this [repository](https://github.com/isaac-chung/insight-image-data).
 Once it's downloaded, place the folder at the root level of the insight project folder, and rename it as `data`.
