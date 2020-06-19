@@ -29,7 +29,11 @@ are provided.
 ## How to use NextPick
 The landing page allows the user to choose an image, enter their current 
 location, and select a proximity preference.
-![app](/static_img/wk3_screenshots/landingpage.jpg) 
+![app](/static_img/wk4/landingpage.png) 
+
+| Near | Far |
+| :----: | :-----:|
+| <img src="/static_img/wk4/near1.png" height="250"/> | <img src="/static_img/wk4/far1.png" height="250"/> | 
 
 After an image is selected and the 'Go' button is clicked, the selected image
 and the entered location are shown.
