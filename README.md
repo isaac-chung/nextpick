@@ -3,6 +3,8 @@
 
 Website: [nextpick.live](http://nextpick.live)
 
+Presentation: [Slides](https://docs.google.com/presentation/d/1G4MmF90gWzwuEMo9kRUgsWgI_qHk0zCEtIVKdqpqpFc/edit?usp=sharing)
+
 <p float="left">
     <img src="/static_img/49770197542.jpg" height="250"/>
     <img src="/static_img/49826303651.jpg" height="250"/>
@@ -31,9 +33,7 @@ The landing page allows the user to choose an image, enter their current
 location, and select a proximity preference.
 ![app](/static_img/wk4/landingpage.png) 
 
-| Near | Far |
-| :----: | :-----:|
-| <img src="/static_img/wk4/near1.png" height="250"/> | <img src="/static_img/wk4/far1.png" height="250"/> | 
+![app](/static_img/wk4/near1.png)
 
 After an image is selected and the 'Go' button is clicked, the selected image
 and the entered location are shown.
@@ -45,11 +45,13 @@ their cosine difference to the input image and the distance to the current locat
 ![app](/static_img/wk3_screenshots/image3.jpg)
 
 And finally, the locations of those images are visualized on a map. Labels for each
-data point is shown on hover. 
+data point is shown on hover. The red dot is the user's entered location. 
 ![app](/static_img/wk3_screenshots/map1.jpg)
+
+The purple dots are recommended locations. 
 ![app](/static_img/wk3_screenshots/map3.jpg)
 
-The user can zoom in and out of the Plotly map
+The user can zoom in and out of the Plotly map.
 ![app](/static_img/wk3_screenshots/map2.jpg)
 
 
