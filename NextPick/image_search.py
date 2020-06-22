@@ -133,7 +133,7 @@ def plot_input_and_similar(test_img, searches, pd, titles=None):
         sp.get_xaxis().set_visible(False)
         sp.get_yaxis().set_visible(False)
         if titles is not None:
-            sp.set_title('Cosine sim = %.3f' % titles[i], fontsize=16)
+            sp.set_title('Cosine diff = %.3f' % titles[i], fontsize=16)
         data = Image.open(pd.iloc[img_idx].path, 'r')
         data = data.convert('RGB')
         data = data.resize((400, 300), Image.ANTIALIAS)

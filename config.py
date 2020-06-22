@@ -7,7 +7,7 @@ DATA_FOLDER = "C:/Users/chung/Documents/04-Insight/insight/data"
 BATCH = 100
 
 # annoy index
-ANNOY_PATH = 'notebooks/annoy_idx.annoy'
+ANNOY_PATH = 'NextPick/annoy_idx.annoy'
 ANNOY_METRIC = 'angular'
 ANNOY_TREE = 20
 

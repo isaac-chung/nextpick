@@ -5,6 +5,7 @@ from NextPick.plotly_map import create_plot, get_input_latlon, get_distances, ge
 import os
 import config as cfg
 from base64 import b64encode
+import pickle
 
 
 # Create the application object
@@ -15,7 +16,9 @@ input_dataset = ImageDataset(cfg.DATA_FOLDER)
 image_loader = torch.utils.data.DataLoader(input_dataset, batch_size=cfg.BATCH)
 model, model_full = load_pretrained_model()
 
-pd_files = input_dataset.get_file_df()
+with open('NextPick/pd_files.pkl','rb') as f:
+    pd_files = pickle.load(f)
+    f.close()
 annoy_path = cfg.ANNOY_PATH
 if os.path.exists(annoy_path):
 	annoy_idx_loaded = AnnoyIndex(cfg.RESNET18_FEAT, metric=cfg.ANNOY_METRIC)
