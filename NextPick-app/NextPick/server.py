@@ -30,7 +30,7 @@ app.secret_key = 'random'
 input_dataset = ImageDataset(DATA_FOLDER)
 image_loader = torch.utils.data.DataLoader(input_dataset, batch_size=BATCH)
 model, model_full = load_pretrained_model()
-fname_df = '%s/NextPick/ski_pd_files.pkl' % APP_PATH
+fname_df = '%s/NextPick/NextPick/pd_files.pkl' % APP_PATH
 with open(fname_df, 'rb') as f:
 	pd_files = pickle.load(f)
 	f.close()
