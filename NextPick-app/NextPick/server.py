@@ -8,18 +8,7 @@ import torch
 from base64 import b64encode
 import pickle
 from NextPick import app
-
-APP_PATH = '/home/ubuntu/application'
-
-# database
-DATA_FOLDER = "%s/NextPick/data" %APP_PATH
-BATCH = 100
-# top_n images
-TOP_N = 20
-# annoy
-ANNOY_PATH = '%s/NextPick/NextPick/annoy_idx.annoy' %APP_PATH
-ANNOY_METRIC = 'angular'
-RESNET18_FEAT = 512
+import NextPick.config as cfg
 
 
 # Create the application object
@@ -27,17 +16,17 @@ RESNET18_FEAT = 512
 app.secret_key = 'random'
 
 # load index and model
-input_dataset = ImageDataset(DATA_FOLDER)
-image_loader = torch.utils.data.DataLoader(input_dataset, batch_size=BATCH)
+input_dataset = ImageDataset(cfg.DATA_FOLDER)
+image_loader = torch.utils.data.DataLoader(input_dataset, batch_size=cfg.BATCH)
 model, model_full = load_pretrained_model()
-fname_df = '%s/NextPick/NextPick/pd_files.pkl' % APP_PATH
+fname_df = '%s/NextPick/NextPick/pd_files.pkl' % cfg.APP_PATH
 with open(fname_df, 'rb') as f:
 	pd_files = pickle.load(f)
 	f.close()
 # pd_files = input_dataset.get_file_df()
-annoy_path = ANNOY_PATH
+annoy_path = cfg.ANNOY_PATH
 if os.path.exists(annoy_path):
-	annoy_idx_loaded = AnnoyIndex(RESNET18_FEAT, metric=ANNOY_METRIC)
+	annoy_idx_loaded = AnnoyIndex(cfg.RESNET18_FEAT, metric=cfg.ANNOY_METRIC)
 	annoy_idx_loaded.load(annoy_path)
 	print('Loaded annoy tree from memory.')
 
@@ -61,13 +50,13 @@ def upload_img():
 			print('..No selected file, but tag not empty')
 			input_type = 'preselect'
 			if selection == "ski":
-				test_img = '%s/NextPick/static/assets/img/ski-test-img.png' %APP_PATH
+				test_img = '%s/NextPick/static/assets/img/ski-test-img.png' % cfg.APP_PATH
 				in_img = 'assets/img/ski-test-img.png'
 			elif selection == "venice":
-				test_img = '%s/NextPick/static/assets/img/venice.jpg' %APP_PATH
+				test_img = '%s/NextPick/static/assets/img/venice.jpg' % cfg.APP_PATH
 				in_img = "assets/img/venice.jpg"
 			elif selection == "banff":
-				test_img = "%s/NextPick/static/assets/img/banff.jpg" %APP_PATH
+				test_img = "%s/NextPick/static/assets/img/banff.jpg" % cfg.APP_PATH
 				in_img = "assets/img/banff.jpg"
 		if file:
 			print('.. using uploaded image')
@@ -78,7 +67,7 @@ def upload_img():
 			in_img = "data:%s;base64,%s" %(mime, encoded.decode()) # remember to decode the encoded data
 
 
-		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=TOP_N)
+		searches = eval_test_image(test_img, model, annoy_idx_loaded, top_n=cfg.TOP_N)
 		df = create_df_for_map_plot(searches, pd_files) # 0.5s per 1 top_n
 		input_latlon = get_input_latlon(input_location)
 		df = get_distances(input_latlon, df)
@@ -97,4 +86,4 @@ def upload_img():
 
 @app.route('/<path:filename>')
 def download_file(filename):
-	return send_from_directory(DATA_FOLDER, filename, as_attachment=True)
+	return send_from_directory(cfg.DATA_FOLDER, filename, as_attachment=True)

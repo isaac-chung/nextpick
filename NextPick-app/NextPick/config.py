@@ -1,13 +1,16 @@
+# App path
+APP_PATH = '/home/ubuntu/application'
+
 # image preprocessing
 RESIZE = (256, 256)
 CROP = 224
 
 # database
-DATA_FOLDER = "C:/Users/chung/Documents/04-Insight/insight/data"
+DATA_FOLDER = "%s/NextPick/data" %APP_PATH
 BATCH = 100
 
 # annoy index
-ANNOY_PATH = 'NextPick/annoy_idx.annoy'
+ANNOY_PATH = '%s/NextPick/NextPick/annoy_idx.annoy' % APP_PATH
 ANNOY_METRIC = 'angular'
 ANNOY_TREE = 20
 
@@ -21,5 +24,5 @@ NUMCLASS = 365
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 # top_n images
-TOP_N = 40
+TOP_N = 20
 

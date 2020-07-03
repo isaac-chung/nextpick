@@ -13,11 +13,7 @@ import torch.nn as nn
 import torchvision.models as models
 from torchvision import transforms as trn
 
-NUMCLASS = 365
-RESNET18_FEAT = 512
-ANNOY_METRIC = 'angular'
-ANNOY_TREE = 20
-APP_PATH = '/home/ubuntu/application'
+import NextPick.config as cfg
 
 # define image transformer
 transform = trn.Compose([trn.Resize((256, 256)),
@@ -36,11 +32,11 @@ def load_pretrained_model(arch='resnet18'):
     '''
 
     # make sure os.getcwd() returns the project home directory.
-    model_file = '%s/NextPick/NextPick/%s_places365.pth.tar' %(APP_PATH, arch)
+    model_file = '%s/NextPick/NextPick/%s_places365.pth.tar' %(cfg.APP_PATH, arch)
 
     # load pre-trained weights
-    model = models.__dict__[arch](num_classes=NUMCLASS)
-    model_full = models.__dict__[arch](num_classes=NUMCLASS)
+    model = models.__dict__[arch](num_classes=cfg.NUMCLASS)
+    model_full = models.__dict__[arch](num_classes=cfg.NUMCLASS)
     checkpoint = torch.load(model_file, map_location=lambda storage, loc: storage)
     state_dict = {str.replace(k, 'module.', ''): v for k, v in checkpoint['state_dict'].items()}
     model.load_state_dict(state_dict)
@@ -80,14 +76,14 @@ def get_vector_index(model, image_loader):
     Returns:
         [annoy index] -- can be used for querying
     """
-    t = AnnoyIndex(RESNET18_FEAT, metric=ANNOY_METRIC)  # 512 for resnet18
+    t = AnnoyIndex(cfg.RESNET18_FEAT, metric=cfg.ANNOY_METRIC)  # 512 for resnet18
     with torch.no_grad():
         model.eval()
         for batch_idx, (data, target) in enumerate(image_loader):
             outputs = model(data)
             for i in range(0, len(data)):
                 t.add_item(target[i], outputs[i])
-    t.build(ANNOY_TREE)
+    t.build(cfg.ANNOY_TREE)
     return t
 
 
@@ -123,7 +119,7 @@ def create_df_for_map_plot(searches, pd_files):
 
     for_plotly = pd.DataFrame(columns=['latitude', 'longitude'])
     for label in class_labels:
-        with open('%s/NextPick/data/%s/%s.pkl' % (APP_PATH, label, label), 'rb') as f:
+        with open('%s/NextPick/data/%s/%s.pkl' % (cfg.APP_PATH, label, label), 'rb') as f:
             locations = pickle.load(f)
             for_plotly = pd.concat(
                 [locations.loc[locations['id'].isin(name)][['latitude', 'longitude']], for_plotly])
