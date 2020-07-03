@@ -80,3 +80,35 @@ python server.py
 ```
 Navigate via your web browser to http://127.0.0.1:5000/. This version of the app is tested on Windows 10 and Ubuntu 
 18.04 (WSL). 
+
+
+## Directory Files
+```
+|-- NextPick-app
+    (Holds the standalone web app)
+    |-- NextPick
+        |-- NextPick
+            (folder for image processing, search, visualization functions)
+            |-- image_search.py
+            |-- ImageDataset.py
+            |-- plotly_map.py
+        |-- static
+            (asset folder for the web app)
+        |-- templates
+            (html templates folder for the web app)
+        |-- test
+            (unit tests folder)
+        |-- config.py
+        |-- requirements.txt
+        |-- server.py
+        |-- setup.py
+    |-- run.py
+|-- notebooks
+    (notebooks folder for data acquisition and exploratory data analyses)
+|-- places365
+    (asset folder from the places365 repo)
+|-- scripts
+    (misc scripts)
+|-- static_img
+    (image folder for README.md)
+```
