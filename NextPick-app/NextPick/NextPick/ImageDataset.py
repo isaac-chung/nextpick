@@ -35,23 +35,21 @@ class ImageDataset(Dataset):
 
 def load_data_paths(folder):
     class_names = [fold for fold in os.listdir(folder)]  # this should get folder names at the 'abbey' level
-    img_paths_list = []
     labels_list = []
     names_list = []
     sub_paths = []
 
     for cl in class_names:
+        if 'git' in cl:
+            continue
         # skip all .pkl files
         img_files = [f for f in os.listdir(os.path.join(folder, cl)) if '.pkl' not in f]
         for img in img_files:
-            full_path = os.path.join(folder, cl, img)
-            img_paths_list.append(full_path)
             labels_list.append(cl)
             names_list.append(img)
             sub_paths.append('/' + os.path.join(cl, img))
 
-    df = pd.DataFrame(columns=['path', 'label', 'name', 'sub_paths'])
-    df['path'] = img_paths_list
+    df = pd.DataFrame(columns=['label', 'name', 'sub_paths'])
     df['label'] = labels_list
     df['name'] = names_list
     df['sub_paths'] = sub_paths

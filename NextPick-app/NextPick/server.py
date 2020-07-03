@@ -7,6 +7,7 @@ import os
 import torch
 from base64 import b64encode
 import pickle
+<<<<<<< HEAD:NextPick-app/NextPick/server.py
 from NextPick import app
 
 APP_PATH = '/home/ubuntu/application'
@@ -20,6 +21,8 @@ TOP_N = 20
 ANNOY_PATH = '%s/NextPick/NextPick/annoy_idx.annoy' %APP_PATH
 ANNOY_METRIC = 'angular'
 RESNET18_FEAT = 512
+=======
+>>>>>>> master:server.py
 
 
 # Create the application object
@@ -30,12 +33,20 @@ app.secret_key = 'random'
 input_dataset = ImageDataset(DATA_FOLDER)
 image_loader = torch.utils.data.DataLoader(input_dataset, batch_size=BATCH)
 model, model_full = load_pretrained_model()
+<<<<<<< HEAD:NextPick-app/NextPick/server.py
 fname_df = '%s/NextPick/ski_pd_files.pkl' % APP_PATH
 with open(fname_df, 'rb') as f:
 	pd_files = pickle.load(f)
 	f.close()
 # pd_files = input_dataset.get_file_df()
 annoy_path = ANNOY_PATH
+=======
+
+with open('NextPick/pd_files.pkl','rb') as f:
+    pd_files = pickle.load(f)
+    f.close()
+annoy_path = cfg.ANNOY_PATH
+>>>>>>> master:server.py
 if os.path.exists(annoy_path):
 	annoy_idx_loaded = AnnoyIndex(RESNET18_FEAT, metric=ANNOY_METRIC)
 	annoy_idx_loaded.load(annoy_path)
