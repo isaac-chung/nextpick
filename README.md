@@ -112,3 +112,6 @@ Navigate via your web browser to http://127.0.0.1:5000/. This version of the app
 |-- static_img
     (image folder for README.md)
 ```
+
+## What's next?
+While it is true that there are small adjustments that can be made to the web app, a logical next step for this project is to dockerize the app. Docker enables developers to easily pack, ship, and run any application as a lightweight, portable, self-sufficient container, which can run virtually anywhere ([ZDNet](https://www.zdnet.com/article/what-is-docker-and-why-is-it-so-darn-popular/)). Docker containers are also easy to deploy in a cloud. 
