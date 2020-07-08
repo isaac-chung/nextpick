@@ -38,6 +38,7 @@ def load_data_paths(folder):
     labels_list = []
     names_list = []
     sub_paths = []
+    paths_list = []
 
     for cl in class_names:
         if 'git' in cl:
@@ -48,9 +49,12 @@ def load_data_paths(folder):
             labels_list.append(cl)
             names_list.append(img)
             sub_paths.append('/' + os.path.join(cl, img))
+            full_path = os.path.join(folder, cl, img)
+            paths_list.append(full_path)
 
-    df = pd.DataFrame(columns=['label', 'name', 'sub_paths'])
+    df = pd.DataFrame(columns=['label', 'name', 'sub_paths', 'path'])
     df['label'] = labels_list
     df['name'] = names_list
     df['sub_paths'] = sub_paths
+    df['path'] = paths_list
     return df

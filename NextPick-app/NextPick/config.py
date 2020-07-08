@@ -12,7 +12,7 @@ BATCH = 100
 # annoy index
 ANNOY_PATH = '%s/NextPick/NextPick/annoy_idx.annoy' % APP_PATH
 ANNOY_METRIC = 'angular'
-ANNOY_TREE = 20
+ANNOY_TREE = 132
 
 # ResNet18 Feature Embeddings
 RESNET18_FEAT = 512
