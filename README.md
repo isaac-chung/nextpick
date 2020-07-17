@@ -1,4 +1,4 @@
-![](https://github.com/isaac-chung/nextpick/workflows/CI/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![](https://github.com/isaac-chung/nextpick/workflows/CI/badge.svg)
 
 # NextPick
 *Pick your next insta-vacation*
@@ -116,4 +116,10 @@ Navigate via your web browser to http://127.0.0.1:5000/. This version of the app
 ```
 
 ## What's next?
-While it is true that there are small adjustments that can be made to the web app, a logical next step for this project is to dockerize the app. Docker enables developers to easily pack, ship, and run any application as a lightweight, portable, self-sufficient container, which can run virtually anywhere ([ZDNet](https://www.zdnet.com/article/what-is-docker-and-why-is-it-so-darn-popular/)). Docker containers are also easy to deploy in a cloud. 
+While it is true that there are small adjustments that can be made to the web app, a logical next step for this 
+project is to dockerize the app. Docker enables developers to easily pack, ship, and run any application as a 
+lightweight, portable, self-sufficient container, which can run virtually anywhere 
+([ZDNet](https://www.zdnet.com/article/what-is-docker-and-why-is-it-so-darn-popular/)). Docker containers are also 
+easy to deploy in a cloud. 
+
+Currently I am waiting for the Windows May 2020 update to use WSL2 to work with Docker. on my Windows machine (Home 10).
