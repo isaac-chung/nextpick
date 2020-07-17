@@ -1,5 +1,6 @@
 # App path
-APP_PATH = '/home/ubuntu/application'
+# APP_PATH = '/home/ubuntu/application'
+APP_PATH = '/mnt/c/Users/chung/Documents/04-Insight/nextpick/NextPick-app'
 
 # image preprocessing
 RESIZE = (256, 256)
@@ -10,7 +11,7 @@ DATA_FOLDER = "%s/NextPick/data" %APP_PATH
 BATCH = 100
 
 # annoy index
-ANNOY_PATH = '%s/NextPick/NextPick/annoy_idx.annoy' % APP_PATH
+ANNOY_PATH = '%s/NextPick/NextPick/annoy_idx_2.annoy' % APP_PATH
 ANNOY_METRIC = 'angular'
 ANNOY_TREE = 132
 
@@ -24,5 +25,5 @@ NUMCLASS = 365
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 # top_n images
-TOP_N = 20
+TOP_N = 40
 
