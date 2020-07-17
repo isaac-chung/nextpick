@@ -1,3 +1,5 @@
+![](https://github.com/isaac-chung/nextpick/workflows/CI/badge.svg)
+
 # NextPick
 *Pick your next insta-vacation*
 
