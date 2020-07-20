@@ -7,21 +7,23 @@ from PIL import Image
 import torch
 import os
 
+# print(os.getcwd())
+# os.chdir('../')
+# print(os.getcwd())
+
 from NextPick.image_search import load_pretrained_model, transform, eval_test_image, create_df_for_map_plot
 from NextPick.plotly_map import get_input_latlon, get_distances, get_top5_distance
 from NextPick.ImageDataset import ImageDataset
 
-
-
-APP_PATH = '/home/ubuntu/application'
-# APP_PATH = 'C:/Users/chung/Documents/04-Insight/insight/NextPick-app'
+# APP_PATH = '/home/ubuntu/application'
+APP_PATH = '/mnt/c/Users/chung/Documents/04-Insight/nextpick/NextPick-app'
 DATA_FOLDER = "%s/NextPick/data" %APP_PATH
 BATCH = 100
 
 # top_n images
 TOP_N = 40
 # annoy
-ANNOY_PATH = '%s/NextPick/NextPick/annoy_idx.annoy' %APP_PATH
+ANNOY_PATH = '%s/NextPick/NextPick/annoy_idx_2.annoy' %APP_PATH
 ANNOY_METRIC = 'angular'
 RESNET18_FEAT = 512
 
@@ -40,7 +42,7 @@ class test_features(unittest.TestCase):
         ski image feature embeddings
         '''
         feature = get_features(self.test_img, self.model)
-        fname = '%s/NextPick/ski_test.pkl' %APP_PATH
+        fname = '%s/NextPick/test/ski_test.pkl' %APP_PATH
         with open(fname, 'rb') as f:
             feature_loaded = pickle.load(f)
             f.close()
@@ -57,7 +59,7 @@ class test_features(unittest.TestCase):
             annoy_idx_loaded.load(ANNOY_PATH)
             print('Loaded annoy tree from memory.')
         searches = eval_test_image(self.test_img, self.model, annoy_idx_loaded, top_n=TOP_N)
-        fname = '%s/NextPick/ski_searches.pkl' %APP_PATH
+        fname = '%s/NextPick/test/ski_searches.pkl' %APP_PATH
         with open(fname, 'rb') as f:
             searches_loaded = pickle.load(f)
             f.close()
@@ -73,7 +75,7 @@ class test_features(unittest.TestCase):
             annoy_idx_loaded.load(ANNOY_PATH)
             print('Loaded annoy tree from memory.')
         searches = eval_test_image(self.test_img, self.model, annoy_idx_loaded, top_n=TOP_N)
-        fname = '%s/NextPick/ski_searches.pkl' %APP_PATH
+        fname = '%s/NextPick/test/ski_searches.pkl' %APP_PATH
         with open(fname, 'rb') as f:
             searches_loaded = pickle.load(f)
             f.close()
@@ -88,7 +90,7 @@ class test_df(unittest.TestCase):
         self.input_dataset = ImageDataset(DATA_FOLDER)
         self.pd_files = self.input_dataset.get_file_df()
         self.image_loader = torch.utils.data.DataLoader(self.input_dataset, batch_size=BATCH)
-        fname = '%s/NextPick/ski_searches.pkl' % APP_PATH
+        fname = '%s/NextPick/test/ski_searches.pkl' % APP_PATH
         with open(fname, 'rb') as f:
             self.searches = pickle.load(f)
             f.close()
@@ -98,7 +100,7 @@ class test_df(unittest.TestCase):
         '''
         Ski image pd_files
         '''
-        fname_df = '%s/NextPick/ski_pd_files.pkl' % APP_PATH
+        fname_df = '%s/NextPick/test/ski_pd_files.pkl' % APP_PATH
         with open(fname_df, 'rb') as f:
             pd_files_loaded = pickle.load(f)
             f.close()
@@ -109,27 +111,12 @@ class test_df(unittest.TestCase):
         '''
         Ski image df creation.
         '''
-        # df should have 40 rows
-        fname_df = '%s/NextPick/ski_pd_files.pkl' % APP_PATH
-        with open(fname_df, 'rb') as f:
-            pd_files_loaded = pickle.load(f)
-            f.close()
-        df = create_df_for_map_plot(self.searches, pd_files_loaded)
-        fname = '%s/NextPick/ski_df_1.pkl' %APP_PATH
+        df = create_df_for_map_plot(self.searches, self.pd_files) # df should have 40 rows
+        fname = '%s/NextPick/test/ski_df_1.pkl' %APP_PATH
         with open(fname, 'rb') as f:
             df_loaded = pickle.load(f)
             f.close()
-        # try:
         self.assertTrue(df.equals(df_loaded))
-        # except:
-        #     diff = np.where(df != df_loaded)
-        #     change_from = df.values[diff]
-        #     change_to = df_loaded.values[diff]
-        #     result = pd.DataFrame({'calculated': change_from, 'loaded': change_to})
-        #     print(result)
-            # with open('diff.pkl', 'wb') as f:
-            #     pickle.dump(diff, f)
-            #     f.close()
 
 
 def get_features(test_img, model):

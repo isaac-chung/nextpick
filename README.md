@@ -84,6 +84,14 @@ Navigate via your web browser to http://127.0.0.1:5000/. This version of the app
 18.04 (WSL). 
 
 
+## Unit Tests
+NextPick comes with a few unit tests, which can be extended in a later time. To run these tests, first modify line 16 
+`image_search.py` from `import NextPick.config as cfg` to `import config as cfg`. Then navigate to the first NextPick 
+directory (`nextpick/NextPick-app/NextPick`), and type the following in the command line:
+```
+python -m unittest discover -p '*_test.py'
+```
+
 ## Directory Files
 ```
 |-- NextPick-app
