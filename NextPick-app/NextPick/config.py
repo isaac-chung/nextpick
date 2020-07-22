@@ -1,6 +1,6 @@
 # App path
-# APP_PATH = '/home/ubuntu/application'
-APP_PATH = '/mnt/c/Users/chung/Documents/04-Insight/nextpick/NextPick-app'
+APP_PATH = '/home/ubuntu/application'
+# APP_PATH = '/mnt/c/Users/chung/Documents/04-Insight/nextpick/NextPick-app'
 
 # image preprocessing
 RESIZE = (256, 256)

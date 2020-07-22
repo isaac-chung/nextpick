@@ -7,16 +7,12 @@ from PIL import Image
 import torch
 import os
 
-# print(os.getcwd())
-# os.chdir('../')
-# print(os.getcwd())
-
 from NextPick.image_search import load_pretrained_model, transform, eval_test_image, create_df_for_map_plot
 from NextPick.plotly_map import get_input_latlon, get_distances, get_top5_distance
 from NextPick.ImageDataset import ImageDataset
 
-# APP_PATH = '/home/ubuntu/application'
-APP_PATH = '/mnt/c/Users/chung/Documents/04-Insight/nextpick/NextPick-app'
+APP_PATH = '/home/ubuntu/application'
+# APP_PATH = '/mnt/c/Users/chung/Documents/04-Insight/nextpick/NextPick-app'
 DATA_FOLDER = "%s/NextPick/data" %APP_PATH
 BATCH = 100
 
