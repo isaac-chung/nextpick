@@ -74,7 +74,8 @@ Once it's downloaded, place the folder at the root level of the insight project 
 If this link is broken, you can follow 
 [this Jupyter notebook](https://github.com/isaac-chung/insight/blob/master/notebooks/1-flickr_api_images_geotag_download.ipynb) 
 to retrieve your own geotagged imaged data using the Flickr API.
-Also, in `config.py`, change the variable `DATA_FOLDER` to the path of the data folder you just created.
+
+Also, in `config.py`, change the variable `APP_PATH` to the path of the app folder.
 
 The app can be run locally using
 ```
@@ -97,6 +98,7 @@ python -m unittest discover -p '*_test.py'
 |-- NextPick-app
     (Holds the standalone web app)
     |-- NextPick
+        |-- (where 'data' should be)
         |-- NextPick
             (folder for image processing, search, visualization functions)
             |-- image_search.py
