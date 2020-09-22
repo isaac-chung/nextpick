@@ -80,3 +80,13 @@ def get_top5_distance(df, prox):
 
     df5['display'] = ['Image %d'%(i+1) for i in range(len(df5.index))]
     return df5
+
+
+def get_search_links(df):
+    """
+    :return: DataFrame with added 'search_string' column.
+    """
+    head_matter = "https://www.google.com/search?q="
+    df['search_string'] = df['address'].apply(lambda x: head_matter + "+".join("+".join(x.address.split(', ')).split(" ")))
+
+    return df

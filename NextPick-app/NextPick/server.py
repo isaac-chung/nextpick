@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, send_from_directory
 from annoy import AnnoyIndex
 from NextPick.NextPick.image_search import load_pretrained_model, eval_test_image, create_df_for_map_plot
 from NextPick.NextPick.ImageDataset import ImageDataset
-from NextPick.NextPick.plotly_map import create_plot, get_input_latlon, get_distances, get_top5_distance
+from NextPick.NextPick.plotly_map import create_plot, get_input_latlon, get_distances, get_top5_distance, get_search_links
 import os
 import torch
 from base64 import b64encode
@@ -74,6 +74,7 @@ def upload_img():
 
 		df = get_top5_distance(df, prox)
 		map_plot = create_plot(df, input_latlon)
+		df = get_search_links(df)
 
 		return render_template("results.html", title=title_text, flag="1",
 							   df=df, plot=map_plot, input_location=input_location,
