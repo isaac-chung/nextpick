@@ -41,8 +41,8 @@ After an image is selected and the 'Go' button is clicked, the selected image
 and the entered location are shown.
 ![app](/static_img/wk3_screenshots/image1.jpg)
 
- This is followed by 5 images, along with 
-their cosine difference to the input image and the distance to the current location.
+ This is followed by 5 images, along with their cosine difference to the input image and the distance to the 
+ current location. Clicking the address would lead to a Google search of the address.
 ![app](/static_img/wk3_screenshots/image2.jpg)
 ![app](/static_img/wk3_screenshots/image3.jpg)
 
