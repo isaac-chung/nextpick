@@ -136,4 +136,8 @@ lightweight, portable, self-sufficient container, which can run virtually anywhe
 ([ZDNet](https://www.zdnet.com/article/what-is-docker-and-why-is-it-so-darn-popular/)). Docker containers are also 
 easy to deploy in a cloud. 
 
-Currently I am waiting for the Windows May 2020 update to use WSL2 to work with Docker. on my Windows machine (Home 10).
+## Installing Docker
+To get Docker running at the time of writing this on my Windows 10 Home machine, version 1909 (OS Build 18363.1082), 
+I followed [these steps](https://superuser.com/questions/1550291/how-to-install-windows-10-home-19018-update). I also
+read [this issue](https://github.com/microsoft/WSL/issues/4103) when setting the WSL version to 2, and 
+[this issue](https://github.com/docker/toolbox/issues/745) when starting up Docker Quickstart. 
