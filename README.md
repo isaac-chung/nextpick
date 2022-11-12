@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 ![](https://github.com/isaac-chung/nextpick/workflows/CI/badge.svg)
-[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-360/)
+[![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://shields.io/)
 
 
@@ -67,9 +67,9 @@ To run a local copy of NextPick, clone the master branch of the repository with
 git clone https://github.com/isaac-chung/insight.git
 ```
 Then, create a virtual environment and have all the dependencies in `requirements.txt` installed. With Anaconda3,
-we can use the following to create one called `insight` with Python 3.7 and all packages installed.
+we can use the following to create one called `insight` with Python 3.8 and all packages installed.
 ```
-conda create -n insight python=3.7
+conda create -n insight python=3.8
 source activate insight
 pip install -r requirements.txt
 ```
